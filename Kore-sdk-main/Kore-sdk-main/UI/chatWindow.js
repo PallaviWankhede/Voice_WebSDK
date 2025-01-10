@@ -1471,7 +1471,7 @@
                 me.config.userAgentIE = navigator.userAgent.indexOf('Trident/') !== -1;
                 var mobileBrowserOpened = me.isMobile();
                 if (mobileBrowserOpened) {
-                    me.config.isSendButton = true;
+                    me.config.isSendButton = false;
                 }
                 me.config.ttsInterface = me.config.ttsInterface || 'webapi';
                 me.loadHistory = me.config.loadHistory || false;
