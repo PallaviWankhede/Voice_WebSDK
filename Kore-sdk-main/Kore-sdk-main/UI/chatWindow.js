@@ -1481,13 +1481,7 @@
                 me.config.botOptions.handleError=me.config.handleError;
                 me.config.botOptions.googleMapsAPIKey=me.config.googleMapsAPIKey;
                 /* autoEnableSpeechAndTTS will on if and only if both tts and mic are enabled */
-		if (me.config.isTTSEnabled && me.config.isSpeechEnabled && me.config.autoEnableSpeechAndTTS && isMobile) {
-                    me.isTTSOn = true;
-                    setTimeout(function () {
-                        $('.ttspeakerDiv').removeClass('ttsOff');
-                    }, 750);
-                }
-		else if (me.config.isTTSEnabled && me.config.isSpeechEnabled && me.config.autoEnableSpeechAndTTS) {
+		if (me.config.isTTSEnabled && me.config.isSpeechEnabled && me.config.autoEnableSpeechAndTTS) {
                     me.isTTSOn = true;
                     setTimeout(function () {
                         $('.ttspeakerDiv').removeClass('ttsOff');
