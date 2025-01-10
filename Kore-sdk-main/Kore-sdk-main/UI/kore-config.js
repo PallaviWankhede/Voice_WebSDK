@@ -24,7 +24,7 @@
     userId = Math.floor(100000 + Math.random() * 900000);
     botOptions.userIdentity = userId;// Provide users email id here
     // botOptions.botInfo = { name: "RGI_Development", "_id": "st-fae378c6-7f93-5d38-9dcb-76dc9ec96f4e" }; // bot name is case sensitive
-    botOptions.botInfo = { name: "Reliance General Insurance", "_id": "st-70682597-d03e-5b6d-8013-d7b3b1b1b87d" };
+    botOptions.botInfo = { name: "RGI_Development", "_id": "st-fae378c6-7f93-5d38-9dcb-76dc9ec96f4e" };
     /* 
     Important Note: These keys are provided here for quick demos to generate JWT token at client side but not for Production environment.
     Refer below document for JWT token generation at server side. Client Id and Client secret should maintained at server end.
@@ -32,8 +32,8 @@
     **/
     // botOptions.clientId = "cs-1d73c5c1-87ef-5aee-904f-43257ba7ad6f";
     // botOptions.clientSecret = "/CaK6+I/FcBCgyBMdxDtD0PIIyU52D5EHdUD7OyubSg=";
-    botOptions.clientId = "cs-cf730fe3-ad87-56ce-bbe4-4041082029ae";
-    botOptions.clientSecret = "SbcpSxyfknzA78zSPuDtX+mYj9a/9GTp/DX6/0P5Za8=";
+    botOptions.clientId = "cs-5e4f8a04-f6ca-560f-8221-ae1b7998e0f7";
+    botOptions.clientSecret = "7x8jlDYDJpRjguGk/J3z8mfZnRWPN9nlCX1vHtonFeE=";
     botOptions.brandingAPIUrl = botOptions.koreAPIUrl +'websdkthemes/'+  botOptions.botInfo._id+'/activetheme';
     botOptions.enableThemes = true;
 // for webhook based communication use following option 
