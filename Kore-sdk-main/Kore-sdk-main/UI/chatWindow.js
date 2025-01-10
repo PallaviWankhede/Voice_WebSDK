@@ -1486,7 +1486,8 @@
                     setTimeout(function () {
                         $('.ttspeakerDiv').removeClass('ttsOff');
                     }, 750);
-                }else (me.config.isTTSEnabled && me.config.isSpeechEnabled && me.config.autoEnableSpeechAndTTS) {
+                }
+		else if (me.config.isTTSEnabled && me.config.isSpeechEnabled && me.config.autoEnableSpeechAndTTS) {
                     me.isTTSOn = true;
                     setTimeout(function () {
                         $('.ttspeakerDiv').removeClass('ttsOff');
