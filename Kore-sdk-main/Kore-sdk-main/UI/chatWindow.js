@@ -5372,15 +5372,15 @@
                     //     })[0];
 
                     // voices list on browser's console
-                    // const voices = speechSynthesis.getVoices();
-                    // console.log('voices supported: ', voices);
+                    const voices = speechSynthesis.getVoices();
+                    console.log('voices supported: ', voices);
 
                     // Queue this utterance.
                     // window.speechSynthesis.speak(msg);
                     audioMsgs.push(_txtToSpeak);
 		    
                     playMessageSequence();
-		    console.log('Active voice:', speechSynthesis.getVoices().find(v => v.default));	
+		    // console.log('Active voice:', speechSynthesis.getVoices().find(v => v.default));	
                }else{
                    console.warn("KORE:Your browser doesn't support TTS(Speech Synthesiser)")
                }
