@@ -5032,6 +5032,7 @@
 		    
                 // Hoonartek kore customization starts
                     if (final_transcript !== "") {
+			$('.chatInputBox').html(prevStr + "" + final_transcript);
                         var me = window.chatContainerConfig;
                         me.sendMessage($('.chatInputBox'));
                         final_transcript = "";  // hoonartek Kore customization for mic on off - Navya
