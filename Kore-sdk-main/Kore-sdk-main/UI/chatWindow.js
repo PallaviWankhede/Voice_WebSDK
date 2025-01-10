@@ -5020,8 +5020,8 @@
                     if (final_transcript !== "") {
                         prevStr += final_transcript;
                     }
-                    //console.log('Interm: ',interim_transcript);
-                    //console.log('final: ',final_transcript);
+                    console.log('Interm: ',interim_transcript);
+                    console.log('final: ',final_transcript);
 			
 	// hoonartek Kore customization for mic on off - Navya
                     if (recognizing && sessionStorage.getItem("mic")== 'true') {
@@ -5029,6 +5029,7 @@
                         $('.sendButton').removeClass('disabled');
                         micEnable();
                     }
+		    
                 // Hoonartek kore customization starts
                     if (final_transcript !== "") {
                         var me = window.chatContainerConfig;
