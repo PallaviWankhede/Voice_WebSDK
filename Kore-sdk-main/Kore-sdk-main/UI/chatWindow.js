@@ -5378,7 +5378,9 @@
                     // Queue this utterance.
                     // window.speechSynthesis.speak(msg);
                     audioMsgs.push(_txtToSpeak);
+		    
                     playMessageSequence();
+		    console.log('Active voice:', speechSynthesis.getVoices().find(v => v.default));	
                }else{
                    console.warn("KORE:Your browser doesn't support TTS(Speech Synthesiser)")
                }
