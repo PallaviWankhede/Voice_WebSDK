@@ -469,6 +469,7 @@
                         text = text.replace(/\b\d{6,7}\b/g, match => readDigitsSeparately(match));
                         text = text.replace(/\b\d{18}\b/g, match => readDigitsSeparately(match)); //policy number read sep
 		    	text = text.replace(/[😄😊✈️🚗]/g, '', match => readDigitsSeparately(match)); //for emoji prompt
+		        text = text.replace(/(?!\d{1,2}\/\d{1,2}\/\d{2,4})\//g, ' or '); //pallavi for forward slash
                 return text;
                 //hoonartek kore customization for mic on off
             }
