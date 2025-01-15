@@ -5406,11 +5406,11 @@
         	    	const desiredVoice = voices.find(voice => voice.name === desiredVoiceName);
 
         	    	if (desiredVoice) {
-            	    msg.voice = desiredVoice;
-            	    console.log(`Using voice: ${desiredVoice.name}`);
-        	    } else {
-            	    	console.warn(`Voice "${desiredVoiceName}" not found. Using the default voice.`);
-        	    }
+            	    		msg.voice = desiredVoice;
+            	    		console.log(`Using voice: ${desiredVoice.name}`);
+        	    	} else {
+            	    		console.warn(`Voice "${desiredVoiceName}" not found. Using the default voice.`);
+        	    	}
 
 		        // Set additional voice properties if needed
 		        msg.lang = "en-US"; // Language code for English (United States)
