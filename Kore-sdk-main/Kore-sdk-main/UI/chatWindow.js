@@ -5390,46 +5390,59 @@
       //       }
 
 		chatWindow.prototype.speakWithWebAPI = function (_txtToSpeak) {
-    		    if (!_txtToSpeak) {
-       			    return false;
-    			}
-    		    if ('speechSynthesis' in window) {
-        	    	// Manually set the desired voice name
-        	    	const desiredVoiceName = "Microsoft Emma Online (Natural) - English (United States)";
-        
-        	    	// Define a new SpeechSynthesisUtterance instance
-        	    	const msg = new SpeechSynthesisUtterance();
-        	    	msg.text = _txtToSpeak;
-
-        	    	// Fetch and set voices (use the first match for desiredVoiceName)
-        	    	const voices = speechSynthesis.getVoices();
-        	    	const desiredVoice = voices.find(voice => voice.name === desiredVoiceName);
-
-        	    	if (desiredVoice) {
-            	    		msg.voice = desiredVoice;
-            	    		console.log(`Using voice: ${desiredVoice.name}`);
-        	    	} else {
-            	    		console.warn(`Voice "${desiredVoiceName}" not found. Using the default voice.`);
-        	    	}
-
-		        // Set additional voice properties if needed
-		        msg.lang = "en-US"; // Language code for English (United States)
-		        msg.rate = 1;       // Speed of the voice (default is 1)
-		        msg.pitch = 1;      // Pitch of the voice (default is 1)
-		        msg.volume = 1;     // Volume level (default is 1)
+		    if (!_txtToSpeak) {
+		        return false;
+		    }
+		    if ('speechSynthesis' in window) {
+		        // Define a function to speak the text with the desired voice
+		        const speakWithVoice = () => {
+		            // Manually set the desired voice name
+		            const desiredVoiceName = "Microsoft Emma Online (Natural) - English (United States)";
 		
-		        // Queue this utterance for playback
-		        window.speechSynthesis.speak(msg);
+		            // Fetch the list of voices
+		            const voices = speechSynthesis.getVoices();
 		
-		        // Push to the audio queue
-		        audioMsgs.push(_txtToSpeak);
+		            // Find the desired voice
+		            const desiredVoice = voices.find(voice => voice.name === desiredVoiceName);
 		
-		        // Optionally play the queued messages
-		        playMessageSequence();
+		            // Define a new SpeechSynthesisUtterance instance
+		            const msg = new SpeechSynthesisUtterance();
+		            msg.text = _txtToSpeak;
+		
+		            if (desiredVoice) {
+		                msg.voice = desiredVoice;
+		                console.log(`Using voice: ${desiredVoice.name}`);
+		            } else {
+		                console.warn(`Voice "${desiredVoiceName}" not found. Using the default voice.`);
+		            }
+		
+		            // Set additional voice properties if needed
+		            msg.lang = "en-US"; // Language code for English (United States)
+		            msg.rate = 1;       // Speed of the voice (default is 1)
+		            msg.pitch = 1;      // Pitch of the voice (default is 1)
+		            msg.volume = 1;     // Volume level (default is 1)
+		
+		            // Queue this utterance for playback
+		            window.speechSynthesis.speak(msg);
+		
+		            // Push to the audio queue
+		            audioMsgs.push(_txtToSpeak);
+		
+		            // Optionally play the queued messages
+		            playMessageSequence();
+		        };
+		
+		        // Check if voices are loaded; if not, wait for the `voiceschanged` event
+		        if (speechSynthesis.getVoices().length > 0) {
+		            speakWithVoice();
+		        } else {
+		            speechSynthesis.addEventListener('voiceschanged', speakWithVoice);
+		        }
 		    } else {
 		        console.warn("KORE: Your browser doesn't support TTS (Speech Synthesizer)");
 		    }
 		};
+
             chatWindow.prototype.stopSpeaking= function() {
                 var me = this;
                 if (me.config.isTTSEnabled) {
