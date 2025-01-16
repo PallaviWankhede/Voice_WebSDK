@@ -5363,7 +5363,7 @@
             chatWindow.prototype.speakWithWebAPI= function(_txtToSpeak) {
 		console.log('speakWithWebAPI function');  
 		const voices = speechSynthesis.getVoices();
-                console.log('voices supported: ', voices);
+                console.log('voices supported outside: ', voices);
                 if(!_txtToSpeak){
                     return false;
                 }
@@ -5382,6 +5382,18 @@
 
                     // Queue this utterance.
                     // window.speechSynthesis.speak(msg);
+		    const voices = speechSynthesis.getVoices();
+		    const desiredVoiceName = "Microsoft Emma Online (Natural) - English (United States)";
+        	    const desiredVoice = voices.find(voice => voice.name === desiredVoiceName);
+		    if (desiredVoice) {
+            		msg.voice = desiredVoice;
+            		console.log(`Using voice: ${desiredVoice.name}`);
+        	    } else {
+            		console.warn(`Voice "${desiredVoiceName}" not found. Using the default voice.`);
+            		msg.voice = voices.filter(function (voice) {
+                	return voice.default === true;
+            		})[0];
+        	    }
                     audioMsgs.push(_txtToSpeak);
                     playMessageSequence();
                }else{
