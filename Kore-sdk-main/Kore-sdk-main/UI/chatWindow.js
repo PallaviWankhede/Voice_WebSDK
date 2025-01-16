@@ -386,7 +386,8 @@
 		  const panNumberRegex = /^[A-Z]{5}\d{4}[A-Z]{1}$/; // Validates a PAN number
 		  const passportRegex = /^[A-Z]{1}\d{7}$/; // Validates a passport number (1 letter followed by 7 digits)
 		  const vehicleRegex = /\b[a-z]{2}\d{2}[a-z]{2}\d{4}\b/i; // Validates vehicle registration number
-		  let removeSpaces = text.replace(/\s/g, "");
+		  // let removeSpaces = text.replace(/\s/g, "");
+                  let removeSpaces = text.replace(/[\s,.-]/g, "");
 		 
 		  if (vehicleRegex.test(removeSpaces)) {
 		    return removeSpaces.replace(/(\w{2})(\d{2})(\w{2})(\d{4})/, "$1-$2-$3-$4");
