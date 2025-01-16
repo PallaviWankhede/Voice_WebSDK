@@ -5361,6 +5361,9 @@
             /*************************************    TTS code start here         **************************************/
 
             chatWindow.prototype.speakWithWebAPI= function(_txtToSpeak) {
+		console.log('speakWithWebAPI function');  
+		const voices = speechSynthesis.getVoices();
+                console.log('voices supported: ', voices);
                 if(!_txtToSpeak){
                     return false;
                 }
@@ -5374,8 +5377,8 @@
                     //     })[0];
 
                     // voices list on browser's console
-                    const voices = speechSynthesis.getVoices();
-                    console.log('voices supported: ', voices);
+                    // const voices = speechSynthesis.getVoices();
+                    // console.log('voices supported: ', voices);
 
                     // Queue this utterance.
                     // window.speechSynthesis.speak(msg);
