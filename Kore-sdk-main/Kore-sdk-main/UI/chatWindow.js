@@ -5370,8 +5370,8 @@
                 if('speechSynthesis' in window){
                     // window.speechSynthesis.cancel();
                     // Create a new instance of SpeechSynthesisUtterance.
-                    // var msg = new SpeechSynthesisUtterance();
-                    // msg.text =_txtToSpeak;
+                    var msg = new SpeechSynthesisUtterance();
+                    msg.text =_txtToSpeak;
                     //  msg.voice = speechSynthesis.getVoices().filter(function(voice) {        
                     //      return voice.default===true;
                     //     })[0];
