@@ -469,7 +469,7 @@
                         text = text.replace(/\b\d{6,7}\b/g, match => readDigitsSeparately(match));
                         text = text.replace(/\b\d{18}\b/g, match => readDigitsSeparately(match)); //policy number read sep
 		    	text = text.replace(/[😄😊✈️🚗]/g, '', match => readDigitsSeparately(match)); //for emoji prompt
-		        text = text.replace(/(?!\d{1,2}\/\d{1,2}\/\d{2,4})\//g, ' or '); //pallavi for forward slash
+		        //text = text.replace(/(?!\d{1,2}\/\d{1,2}\/\d{2,4})\//g, ' or '); //pallavi for forward slash
                 return text;
                 //hoonartek kore customization for mic on off
             }
@@ -1472,7 +1472,7 @@
                 me.config.userAgentIE = navigator.userAgent.indexOf('Trident/') !== -1;
                 var mobileBrowserOpened = me.isMobile();
                 if (mobileBrowserOpened) {
-                    me.config.isSendButton = false;
+                    me.config.isSendButton = true;
                 }
                 me.config.ttsInterface = me.config.ttsInterface || 'webapi';
                 me.loadHistory = me.config.loadHistory || false;
@@ -1482,7 +1482,7 @@
                 me.config.botOptions.handleError=me.config.handleError;
                 me.config.botOptions.googleMapsAPIKey=me.config.googleMapsAPIKey;
                 /* autoEnableSpeechAndTTS will on if and only if both tts and mic are enabled */
-		if (me.config.isTTSEnabled && me.config.isSpeechEnabled && me.config.autoEnableSpeechAndTTS) {
+                if (me.config.isTTSEnabled && me.config.isSpeechEnabled && me.config.autoEnableSpeechAndTTS) {
                     me.isTTSOn = true;
                     setTimeout(function () {
                         $('.ttspeakerDiv').removeClass('ttsOff');
@@ -5021,8 +5021,8 @@
                     if (final_transcript !== "") {
                         prevStr += final_transcript;
                     }
-                    console.log('Interm: ',interim_transcript);
-                    console.log('final: ',final_transcript);
+                    //console.log('Interm: ',interim_transcript);
+                    //console.log('final: ',final_transcript);
 			
 	// hoonartek Kore customization for mic on off - Navya
                     if (recognizing && sessionStorage.getItem("mic")== 'true') {
@@ -5030,10 +5030,8 @@
                         $('.sendButton').removeClass('disabled');
                         micEnable();
                     }
-		    
                 // Hoonartek kore customization starts
                     if (final_transcript !== "") {
-			$('.chatInputBox').html(final_transcript);
                         var me = window.chatContainerConfig;
                         me.sendMessage($('.chatInputBox'));
                         final_transcript = "";  // hoonartek Kore customization for mic on off - Navya
@@ -5375,20 +5373,17 @@
                     //     })[0];
 
                     // voices list on browser's console
-                    const voices = speechSynthesis.getVoices();
-                    console.log('voices supported: ', voices);
+                    // const voices = speechSynthesis.getVoices();
+                    // console.log('voices supported: ', voices);
 
                     // Queue this utterance.
                     // window.speechSynthesis.speak(msg);
                     audioMsgs.push(_txtToSpeak);
-		    
                     playMessageSequence();
-		    // console.log('Active voice:', speechSynthesis.getVoices().find(v => v.default));	
                }else{
                    console.warn("KORE:Your browser doesn't support TTS(Speech Synthesiser)")
                }
             }
-
             chatWindow.prototype.stopSpeaking= function() {
                 var me = this;
                 if (me.config.isTTSEnabled) {
