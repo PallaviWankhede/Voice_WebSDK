@@ -5360,45 +5360,31 @@
 
             /*************************************    TTS code start here         **************************************/
 
-	         chatWindow.prototype.speakWithWebAPI = function (_txtToSpeak) {
-		    if (!_txtToSpeak) {
-		        return false;
-		    }
-		    if ('speechSynthesis' in window) {
-		        // Cancel any ongoing speech synthesis to prevent overlap
-		        window.speechSynthesis.cancel();
-		
-		        // Create a new instance of SpeechSynthesisUtterance
-		        var msg = new SpeechSynthesisUtterance();
-		        msg.text = _txtToSpeak;
-		
-		        // Fetch the list of voices
-		        const voices = speechSynthesis.getVoices();
-		        console.log('voices supported: ', voices);
-		
-		        // Set the desired voice, if available
-		        const desiredVoiceName = "Microsoft Emma Online (Natural) - English (United States)";
-		        const desiredVoice = voices.find(voice => voice.name === desiredVoiceName);
-		
-		        if (desiredVoice) {
-		            msg.voice = desiredVoice;
-		            console.log(`Using voice: ${desiredVoice.name}`);
-		        } else {
-		            console.warn(`Voice "${desiredVoiceName}" not found. Using the default voice.`);
-		            msg.voice = voices.filter(function (voice) {
-		                return voice.default === true;
-		            })[0];
-		        }
-		
-		        // Queue this utterance
-		        audioMsgs.push(msg.text);
-		
-		        // Play the queued message(s)
-		        playMessageSequence();
-		    } else {
-		        console.warn("KORE: Your browser doesn't support TTS (Speech Synthesizer)");
-		    }
-		};
+	         chatWindow.prototype.speakWithWebAPI= function(_txtToSpeak) {
+                if(!_txtToSpeak){
+                    return false;
+                }
+                if('speechSynthesis' in window){
+                    // window.speechSynthesis.cancel();
+                    // Create a new instance of SpeechSynthesisUtterance.
+                    // var msg = new SpeechSynthesisUtterance();
+                    // msg.text =_txtToSpeak;
+                    //  msg.voice = speechSynthesis.getVoices().filter(function(voice) {        
+                    //      return voice.default===true;
+                    //     })[0];
+
+                    // voices list on browser's console
+                    // const voices = speechSynthesis.getVoices();
+                    // console.log('voices supported: ', voices);
+
+                    // Queue this utterance.
+                    // window.speechSynthesis.speak(msg);
+                    audioMsgs.push(_txtToSpeak);
+                    playMessageSequence();
+               }else{
+                   console.warn("KORE:Your browser doesn't support TTS(Speech Synthesiser)")
+               }
+            }
             chatWindow.prototype.stopSpeaking= function() {
                 var me = this;
                 if (me.config.isTTSEnabled) {
