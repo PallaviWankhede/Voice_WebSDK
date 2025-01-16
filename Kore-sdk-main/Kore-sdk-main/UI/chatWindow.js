@@ -5373,8 +5373,8 @@
                     //     })[0];
 
                     // voices list on browser's console
-                    // const voices = speechSynthesis.getVoices();
-                    // console.log('voices supported: ', voices);
+                    const voices = speechSynthesis.getVoices();
+                    console.log('voices supported: ', voices);
 
                     // Queue this utterance.
                     // window.speechSynthesis.speak(msg);
