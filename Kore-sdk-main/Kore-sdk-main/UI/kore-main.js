@@ -1,27 +1,34 @@
 (function($){
 
+     console.log("In function($) in koremain.js");
      // hoonartek customization for iframe issue
     $(document).on('click', '.minimize-btn, .close-btn', function() {
+        console.log("In $(document).on('click', '.minimize-btn, .close-btn'in koremain.js");
         window.parent.postMessage('closeButtonClicked', '*');
     });
 
    $(document).on('click', '.minimized', function() {
+        console.log("In $(document).on('click', '.minimized', function() in koremain.js");
         window.parent.postMessage('expandBtn', '*');
     });
     // hoonartek customization for iframe issue ends
 
 //hoonartek kore customization for mic on off
          $(document).on('click', '.notRecordingMicrophone', function(e) {
+              console.log("In $(document).on('click', '.notRecordingMicrophone', function(e) in koremain.js");
               // console.log("e.originalEvent: ",e.originalEvent)
            if(e.originalEvent)sessionStorage.setItem("mic",true)
        });
        $(document).on('click', '.recordingMicrophone', function(e) {
+            console.log("In $(document).on('click', '.recordingMicrophone', function(e) in koremain.js");
            if(e.originalEvent)sessionStorage.setItem("mic",false)
        });
 //hoonartek kore customization for mic on off ends
     
     $(document).ready(function () {
+         console.log("In $(document).ready(function ()) in koremain.js");         
         function assertion(options, callback) {
+             console.log("In function assertion in koremain.js");
             //kore customization
             var sessionId;
             if(!localStorage.getItem('session')){
@@ -62,6 +69,7 @@
             });
         }
         function getBrandingInformation(options) {
+             console.log("In function getBrandingInformation in koremain.js");
             if (chatConfig.botOptions && chatConfig.botOptions.enableThemes) {
                 var brandingAPIUrl = (chatConfig.botOptions.brandingAPIUrl || '').replace(':appId', chatConfig.botOptions.botInfo._id);
                 $.ajax({
@@ -87,6 +95,7 @@
 
         }
         function onJWTGrantSuccess(options){
+             console.log("In function onJWTGrantSuccess in koremain.js");
             getBrandingInformation(options);
         }
         var chatConfig=window.KoreSDK.chatConfig;
