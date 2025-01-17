@@ -5527,7 +5527,7 @@
                     return false;
                 }
                 if('speechSynthesis' in window){
-		    console.log("In _txtToSpeak if condition");
+		    console.log("In speechSynthesis' in window if condition ");
                     // window.speechSynthesis.cancel();
                     // Create a new instance of SpeechSynthesisUtterance.
                     // var msg = new SpeechSynthesisUtterance();
