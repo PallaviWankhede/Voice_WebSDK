@@ -5554,7 +5554,7 @@
                 if (me.config.isTTSEnabled) {
 		    console.log("In me.config.isTTSEnabled If condition");
                     if(me.config.ttsInterface && me.config.ttsInterface==="webapi"){
-			    console.log("In me.config.ttsInterface && me.config.ttsInterface==="webapi" If condition");
+			    console.log("In me.config.ttsInterface && me.config.ttsInterface===webapi If condition");
                         if('speechSynthesis' in window){
 				console.log("In 'speechSynthesis' in window If condition");
                             audioMsgs = [];
