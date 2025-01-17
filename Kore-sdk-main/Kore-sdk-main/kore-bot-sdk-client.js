@@ -1688,8 +1688,8 @@ KoreRTMClient.prototype.handleWsMessage = function handleWsMessage(wsMsg) {
 
 
 KoreRTMClient.prototype._handleWsMessageInternal = function _handleWsMessageInternal(
-  console.log("In  KoreRTMClient.prototype._close in client sdk");
   messageType, message) {
+  console.log("In  KoreRTMClient close in client sdk");
   if (messageType === RTM_API_EVENTS.HELLO) {
     this._handleHello();
   }
@@ -1697,8 +1697,8 @@ KoreRTMClient.prototype._handleWsMessageInternal = function _handleWsMessageInte
 
 
 KoreRTMClient.prototype._handleWsMessageViaEventHandler = function _handleWsMessageViaEventHandler(
-  console.log("In  KoreRTMClient.prototype._close in client sdk");
   messageType, message) {
+  console.log("In  KoreRTMClient.prototype._close in client sdk");
   var replyTo;
 
   if (messageType === RTM_API_EVENTS.MESSAGE) {
