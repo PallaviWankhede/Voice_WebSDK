@@ -2843,7 +2843,7 @@
                 graphLibGlob = me.config.graphLib || "d3";
 	// hoonartek kore customization for mic
                 if(msgData.type === "currentUser"){ 
-		    console.log(In reformatUsertext called);
+		    console.log("In reformatUsertext called");
                     msgData.message[0].cInfo.body = reFormatUserText(msgData.message[0].cInfo.body);
                 }
         // hoonartek kore customization for mic ends
