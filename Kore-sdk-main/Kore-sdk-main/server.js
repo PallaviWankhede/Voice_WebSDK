@@ -15,5 +15,6 @@ app.use(require('./UI/app'));
 app.use('/',express.static(path.join(PROJECT_DIR, '')));
 
 http.listen(port, function(){
+    console.log('In file server.js');
     console.log('Sample Application runnning at http://localhost:'+port+'/UI');
 });
