@@ -27,6 +27,7 @@ if(typeof window !== "undefined"){
 var debug = require("debug")("botsdk:KoreBot");
 
 function KoreBot() {
+	console.log("In function KoreBot in bot client file");
 	EventEmitter.call(this);
 	this.WebClient = null;
 	this.RtmClient = null;
@@ -61,6 +62,7 @@ var _chatHistoryLoaded = false;
 inherits(KoreBot, EventEmitter);
 
 KoreBot.prototype.emit = function emit() {
+	console.log("In prototype emit in bot client file");
 	if(arguments && arguments[0] === 'history' && this.historySyncInProgress){
     this.historySyncInProgress = false;		
     arguments[2]="historysync";
@@ -82,6 +84,7 @@ KoreBot.prototype.emit = function emit() {
 	Fetch user location and send along with user message
 */
 KoreBot.prototype.fetchUserLocation = function() {
+	console.log("In prototype.fetchUserLocation in bot client file");
 	if(userLocation.country !== "") {
 		return;
 	}
@@ -160,6 +163,7 @@ KoreBot.prototype.fetchUserLocation = function() {
 //   return text.replace(/\.$/, '');
 // }
 function reFormatUserText(text) {
+  console.log("In reformatUsertext function in Kore bot client sdk js");
   const phoneRegex = /^\d{10}$/; // Validates a 10-digit phone number
   const policyRegex = /^\d{18}$/; // Validates an 18-digit policy number
   const pincodeRegex = /^\d{6}$/; // Validates a 6-digit pincode
@@ -194,6 +198,7 @@ function reFormatUserText(text) {
 sends a message to bot.
 */
 KoreBot.prototype.sendMessage = function(message,optCb) {
+	console.log("In KoreBot.prototype.sendMessage in client file");
 	debug("sending message to bot");
 	if(this.initialized){
 		message["resourceid"] = message.resourceid || '/bot.message';
@@ -221,6 +226,7 @@ KoreBot.prototype.sendMessage = function(message,optCb) {
 };
 
 KoreBot.prototype.sendMessageViaWebhook = function(messagePayload,successCb,failureCb) {
+  console.log("In prototype.sendMessageViaWebhook KoreBot in bot client file");
   var client=this.WebClient;
   var me=this;
   messagePayload.opts={
@@ -240,6 +246,7 @@ KoreBot.prototype.sendMessageViaWebhook = function(messagePayload,successCb,fail
 	
 };
 KoreBot.prototype.getBotMetaData = function (successCb, failureCb,) {
+  console.log("In ototype.getBotMetaData KoreBot in bot client file");
   var client = this.WebClient;
   var me = this;
   var payload={}
@@ -257,6 +264,7 @@ KoreBot.prototype.getBotMetaData = function (successCb, failureCb,) {
   });
 };
 KoreBot.prototype.convertWebhookResposeToMessages=function(resBody){
+  console.log("In  KoreBot prototype.convertWebhookResposeToMessages in bot client file");
   var msgData;
   var textData = resBody.text;
   var msgsData=[];
@@ -343,6 +351,7 @@ KoreBot.prototype.convertWebhookResposeToMessages=function(resBody){
   
 }
 KoreBot.prototype.startPollForWebhookResponse = function(pId,successCb) {
+  console.log("In prototype.startPollForWebhookResponse KoreBot in bot client file");
 
   var POOL_INTERVAL=1000;//1 SEC
   var me=this;
@@ -378,6 +387,7 @@ KoreBot.prototype.startPollForWebhookResponse = function(pId,successCb) {
 emits a message event on message from the server.
 */
 KoreBot.prototype.onMessage = function(msg) {
+	console.log("In prototype.onMessage KoreBot in bot client file");
 	debug("on message from bot/self");
 	if(msg.from === "bot" && msg.type === "bot_response")
 	{
@@ -390,6 +400,7 @@ KoreBot.prototype.onMessage = function(msg) {
 };
 
 KoreBot.prototype.sendAck = function(msg) {
+  console.log("In prototype.sendAck KoreBot in bot client file");
   if (this.options?.enableAck.delivery) {
     if (msg.data && JSON.parse(msg.data)?.type == "bot_response") {
       var reply = {};
@@ -409,6 +420,7 @@ KoreBot.prototype.sendAck = function(msg) {
 close's the WS connection.
 */
 KoreBot.prototype.close = function() {
+	console.log("In prototype.close KoreBot in bot client file");
 	debug("request to close ws connection");
 	if (this.RtmClient) {
 		this.RtmClient._close();
@@ -419,6 +431,7 @@ KoreBot.prototype.close = function() {
 destory for bot sdk object
 */
 KoreBot.prototype.destroy = function () {
+  console.log("In prototype.destroy KoreBot in bot client file");
   if (this.RtmClient) {
     this.RtmClient._close();
   }
@@ -429,6 +442,7 @@ KoreBot.prototype.destroy = function () {
 on forward history.
 */
 KoreBot.prototype.onForwardHistory = function(err, data) {
+	console.log("In prototype.onForwardHistory KoreBot in bot client file");
 	debug("on forward history");
 	
 	var clientresp = {};
@@ -484,6 +498,7 @@ on backward history.
 */
 
 KoreBot.prototype.onBackWardHistory = function(err, data) {
+	console.log("In prototype.onBackWardHistory KoreBot in bot client file");
 	debug("on backword history");
 	
 	var clientresp = {};
@@ -537,6 +552,7 @@ KoreBot.prototype.onBackWardHistory = function(err, data) {
 gets the history of the conversation.
 */
 KoreBot.prototype.getHistory = function(opts,config) {
+	console.log("In prototype.getHistory KoreBot in bot client file");
 	debug("get history");
 	opts = opts || {};
 	//opts.limit = 10;
@@ -583,6 +599,7 @@ KoreBot.prototype.sync = function(options) {
 emits the open event on WS connection established.
 */
 KoreBot.prototype.onOpenWSConnection = function(msg) {
+	console.log("In prototype.onOpenWSConnection KoreBot in bot client file");
 	debug("opened WS Connection");
   this.initialized = true;
   if(this.options.loadHistory && !_chatHistoryLoaded){
@@ -595,6 +612,7 @@ KoreBot.prototype.onOpenWSConnection = function(msg) {
 initializes the rtmclient and binds the cb's for ws events.
 */
 KoreBot.prototype.onLogIn = function(err, data) {
+	console.log("In prototype.onLogIn KoreBot in bot client file");
 	debug("sign-in/anonymous user onLogin");
 	if (err) {
         if (this.cbErrorToClient) {
@@ -638,6 +656,7 @@ KoreBot.prototype.onLogIn = function(err, data) {
 validates the JWT claims and issue's access token for valid user.
 */
 KoreBot.prototype.logIn = function(err, data) {
+	console.log("In prototype.logIn KoreBot in bot client file");
 	if (err) {
 		debug("error in assertionFn %s",err);
 		console.error("error in assertionFn",err && err.stack);
@@ -669,6 +688,7 @@ KoreBot.prototype.logIn = function(err, data) {
 initializes the bot set up.
 */
 KoreBot.prototype.init = function(options,messageHistoryLimit) {
+	console.log("In prototype.init KoreBot in bot client file");
 	messageHistoryLimit = messageHistoryLimit || 10;
 	if(messageHistoryLimit > 100) {
 		messageHistoryLimit = 100;
@@ -703,6 +723,7 @@ KoreBot.prototype.init = function(options,messageHistoryLimit) {
 
 
 KoreBot.prototype.reWriteWebhookConfig=function (config){
+	console.log("In prototype.reWriteWebhookConfig KoreBot in bot client file");
   if(config && config.webhookConfig && config.webhookConfig.enable){
     var streamId=config.botInfo.taskBotId;
     var channelType='ivr';
@@ -718,6 +739,7 @@ KoreBot.prototype.reWriteWebhookConfig=function (config){
 }
 var _instance;
 module.exports.instance = function(){
+	console.log("In module.exports.instance in bot client file");
 	_chatHistoryLoaded = false;
 	  _instance=new KoreBot();
     /*
@@ -1557,11 +1579,13 @@ KoreRTMClient.prototype._onStart = function _onStart(err, data) {
 
 //To close the ws on refresh,close, and on logout.
 KoreRTMClient.prototype._close = function _close() {
+  console.log("In  KoreRTMClient.prototype._close in client sdk");
   this.autoReconnect = false;
   this._safeDisconnect();
 };
 
 KoreRTMClient.prototype._safeDisconnect = function _safeDisconnect() {
+  console.log("In  KoreRTMClient.prototype._close in client sdk");
   if (this.ws) {
     // Stop listening to the websocket's close event, so that the auto-reconnect logic doesn't fire
     // twice.
@@ -1573,6 +1597,7 @@ KoreRTMClient.prototype._safeDisconnect = function _safeDisconnect() {
 };
 
 KoreRTMClient.prototype.reWriteURL = function connect(socketUrl) {
+  console.log("In  KoreRTMClient.prototype._close in client sdk");
   if (this.reWriteSocketURL) {
       var parser = document.createElement('a');
       parser.href = socketUrl;
@@ -1595,6 +1620,7 @@ KoreRTMClient.prototype.reWriteURL = function connect(socketUrl) {
 
 
 KoreRTMClient.prototype.connect = function connect(socketUrl) {
+  console.log("In  KoreRTMClient.prototype._close in client sdk");
   debug("connecting");
   this.emit(CLIENT_EVENTS.WS_OPENING,{});
   socketUrl=this.reWriteURL(socketUrl);
@@ -1607,6 +1633,7 @@ KoreRTMClient.prototype.connect = function connect(socketUrl) {
 };
 
 KoreRTMClient.prototype.disconnect = function disconnect(optErr, optCode) {
+  console.log("In  KoreRTMClient.prototype._close in client sdk");
   debug("disconnecting");
   this.emit(CLIENT_EVENTS.DISCONNECT, optErr, optCode);
   this.autoReconnect = false;
@@ -1615,6 +1642,7 @@ KoreRTMClient.prototype.disconnect = function disconnect(optErr, optCode) {
 
 
 KoreRTMClient.prototype.reconnect = function reconnect() {
+  console.log("In  KoreRTMClient.prototype._close in client sdk");
   debug("reconnecting");
   console.log("in reconnect");
 
@@ -1632,6 +1660,7 @@ KoreRTMClient.prototype.reconnect = function reconnect() {
 
 
 KoreRTMClient.prototype.handleWsOpen = function handleWsOpen() {
+  console.log("In  KoreRTMClient.prototype._close in client sdk");
   debug("connected");
   this.connected = true;
   this.emit('open',{data:{}});
@@ -1640,6 +1669,7 @@ KoreRTMClient.prototype.handleWsOpen = function handleWsOpen() {
 
 
 KoreRTMClient.prototype.handleWsMessage = function handleWsMessage(wsMsg) {
+  console.log("In  KoreRTMClient.prototype._close in client sdk");
   var message;
   this.emit("message", wsMsg);
 
@@ -1658,6 +1688,7 @@ KoreRTMClient.prototype.handleWsMessage = function handleWsMessage(wsMsg) {
 
 
 KoreRTMClient.prototype._handleWsMessageInternal = function _handleWsMessageInternal(
+  console.log("In  KoreRTMClient.prototype._close in client sdk");
   messageType, message) {
   if (messageType === RTM_API_EVENTS.HELLO) {
     this._handleHello();
@@ -1666,6 +1697,7 @@ KoreRTMClient.prototype._handleWsMessageInternal = function _handleWsMessageInte
 
 
 KoreRTMClient.prototype._handleWsMessageViaEventHandler = function _handleWsMessageViaEventHandler(
+  console.log("In  KoreRTMClient.prototype._close in client sdk");
   messageType, message) {
   var replyTo;
 
@@ -1687,12 +1719,14 @@ KoreRTMClient.prototype._handleWsMessageViaEventHandler = function _handleWsMess
 };
 
 KoreRTMClient.prototype.handleWsError = function handleWsError(err) {
+  console.log("In  KoreRTMClient.prototype._close in client sdk");
   debug("web socket error::%s",err);
   this.emit(CLIENT_EVENTS.WS_ERROR, err);
 };
 
 
 KoreRTMClient.prototype.handleWsClose = function handleWsClose(code, reason) {
+  console.log("In  KoreRTMClient.prototype._close in client sdk");
   this.connected = false;
   this.emit(CLIENT_EVENTS.WS_CLOSE, code, reason);
 
@@ -1707,21 +1741,25 @@ KoreRTMClient.prototype.handleWsClose = function handleWsClose(code, reason) {
 };
 
 KoreRTMClient.prototype.handleWsPing = function handleWsPing() {
+  console.log("In  KoreRTMClient.prototype._close in client sdk");
   if (this.ws.pong) {
     this.ws.pong();
   }
 };
 
 KoreRTMClient.prototype._handleHello = function _handleHello() {
+  console.log("In  KoreRTMClient.prototype._close in client sdk");
   this.connected = true;
   this.emit(CLIENT_EVENTS.RTM_CONNECTION_OPENED);
 };
 
 KoreRTMClient.prototype.sendMessage = function sendMessage(message, optCb) {
+  console.log("In  KoreRTMClient.prototype._close in client sdk");
   this.send(message, optCb);
 };
 
 KoreRTMClient.prototype.send = function send(message, optCb) {
+  console.log("In  KoreRTMClient.prototype._close in client sdk");
   var wsMsg = cloneDeep(message);
   var jsonMessage;
   var err;
@@ -1976,6 +2014,7 @@ var BaseApi = require('./BaseApi');
 var inherits = require('inherits');
 
 function RtmApi(client) {
+  console.log("In  function RtmApi in client sdk");
   this.name = 'rtm';
   this.client = client;
   this.BaseApi = BaseApi;
@@ -1984,6 +2023,7 @@ function RtmApi(client) {
 inherits(RtmApi, BaseApi);
 
 RtmApi.prototype.start = function start(opts, optCb) {
+  console.log("In  prototype RtmApi in client sdk");
   var args = {
     opts: opts
   };
@@ -2009,6 +2049,7 @@ var BaseAPIClient = require('../client');
 var apis = require('./apis/index');
 
 function WebAPIClient(token, opts) {
+  console.log("In  function WebAPIClient in client sdk");
   var clientOpts = opts || {};
 
   BaseAPIClient.call(this, token, clientOpts);
@@ -2023,6 +2064,7 @@ function WebAPIClient(token, opts) {
 inherits(WebAPIClient, BaseAPIClient);
 
 WebAPIClient.prototype._createFacets = function _createFacets() {
+  console.log("In  function WebAPIClient in client sdk");
   var newFacet;
   var makeAPICall;
 
@@ -2081,6 +2123,7 @@ module.exports = WebAPIClient;
     };
 
     function only_once(fn) {
+	console.log("In  function only_once in client sdk");
         return function() {
             if (fn === null) throw new Error("Callback was already called.");
             fn.apply(this, arguments);
@@ -2089,6 +2132,7 @@ module.exports = WebAPIClient;
     }
 
     function _once(fn) {
+	console.log("In  function _once in client sdk");
         return function() {
             if (fn === null) return;
             fn.apply(this, arguments);
@@ -2111,6 +2155,7 @@ module.exports = WebAPIClient;
     };
 
     function _isArrayLike(arr) {
+	console.log("In  function _isArrayLike in client sdk");
         return _isArray(arr) || (
             // has a positive integer length property
             typeof arr.length === "number" &&
@@ -2120,6 +2165,7 @@ module.exports = WebAPIClient;
     }
 
     function _arrayEach(arr, iterator) {
+	console.log("In  function _arrayEach in client sdk");
         var index = -1,
             length = arr.length;
 
@@ -2129,6 +2175,7 @@ module.exports = WebAPIClient;
     }
 
     function _map(arr, iterator) {
+	console.log("In  function _map in client sdk");
         var index = -1,
             length = arr.length,
             result = Array(length);
@@ -2140,10 +2187,12 @@ module.exports = WebAPIClient;
     }
 
     function _range(count) {
+	console.log("In  function _range in client sdk");
         return _map(Array(count), function (v, i) { return i; });
     }
 
     function _reduce(arr, iterator, memo) {
+	console.log("In  function _reduce in client sdk");
         _arrayEach(arr, function (x, i, a) {
             memo = iterator(memo, x, i, a);
         });
@@ -2151,12 +2200,14 @@ module.exports = WebAPIClient;
     }
 
     function _forEachOf(object, iterator) {
+	console.log("In  function only_once in client sdk");
         _arrayEach(_keys(object), function (key) {
             iterator(object[key], key);
         });
     }
 
     function _indexOf(arr, item) {
+	console.log("In  function only_once in client sdk");
         for (var i = 0; i < arr.length; i++) {
             if (arr[i] === item) return i;
         }
@@ -2174,6 +2225,7 @@ module.exports = WebAPIClient;
     };
 
     function _keyIterator(coll) {
+	console.log("In  function only_once in client sdk");
         var i = -1;
         var len;
         var keys;
@@ -2197,6 +2249,7 @@ module.exports = WebAPIClient;
     // This accumulates the arguments passed into an array, after a given index.
     // From underscore.js (https://github.com/jashkenas/underscore/pull/2140).
     function _restParam(func, startIndex) {
+	console.log("In  function only_once in client sdk");
         startIndex = startIndex == null ? func.length - 1 : +startIndex;
         return function() {
             var length = Math.max(arguments.length - startIndex, 0);
@@ -2219,6 +2272,7 @@ module.exports = WebAPIClient;
     }
 
     function _withoutIndex(iterator) {
+	console.log("In  function only_once in client sdk");
         return function (value, index, callback) {
             return iterator(value, callback);
         };
@@ -2248,22 +2302,26 @@ module.exports = WebAPIClient;
 
     async.forEach =
     async.each = function (arr, iterator, callback) {
+	console.log("In  function async in client sdk");
         return async.eachOf(arr, _withoutIndex(iterator), callback);
     };
 
     async.forEachSeries =
     async.eachSeries = function (arr, iterator, callback) {
+	console.log("In  function async in client sdk");
         return async.eachOfSeries(arr, _withoutIndex(iterator), callback);
     };
 
 
     async.forEachLimit =
     async.eachLimit = function (arr, limit, iterator, callback) {
+	console.log("In  function async in client sdk");
         return _eachOfLimit(limit)(arr, _withoutIndex(iterator), callback);
     };
 
     async.forEachOf =
     async.eachOf = function (object, iterator, callback) {
+	console.log("In  function async in client sdk");
         callback = _once(callback || noop);
         object = object || [];
 
@@ -2278,6 +2336,7 @@ module.exports = WebAPIClient;
         if (completed === 0) callback(null);
 
         function done(err) {
+	    console.log("In  function done in client sdk");
             completed--;
             if (err) {
                 callback(err);
@@ -2292,6 +2351,7 @@ module.exports = WebAPIClient;
 
     async.forEachOfSeries =
     async.eachOfSeries = function (obj, iterator, callback) {
+	console.log("In  function done in client sdk");
         callback = _once(callback || noop);
         obj = obj || [];
         var nextKey = _keyIterator(obj);
@@ -2327,10 +2387,12 @@ module.exports = WebAPIClient;
 
     async.forEachOfLimit =
     async.eachOfLimit = function (obj, limit, iterator, callback) {
+        console.log("In  function done in client sdk");
         _eachOfLimit(limit)(obj, iterator, callback);
     };
 
     function _eachOfLimit(limit) {
+	console.log("In  function done in client sdk");
 
         return function (obj, iterator, callback) {
             callback = _once(callback || noop);
@@ -2375,22 +2437,26 @@ module.exports = WebAPIClient;
 
 
     function doParallel(fn) {
+	console.log("In  function done in client sdk");
         return function (obj, iterator, callback) {
             return fn(async.eachOf, obj, iterator, callback);
         };
     }
     function doParallelLimit(fn) {
+	console.log("In  function done in client sdk");
         return function (obj, limit, iterator, callback) {
             return fn(_eachOfLimit(limit), obj, iterator, callback);
         };
     }
     function doSeries(fn) {
+	console.log("In  function done in client sdk");
         return function (obj, iterator, callback) {
             return fn(async.eachOfSeries, obj, iterator, callback);
         };
     }
 
     function _asyncMap(eachfn, arr, iterator, callback) {
+	console.log("In  function done in client sdk");
         callback = _once(callback || noop);
         arr = arr || [];
         var results = _isArrayLike(arr) ? [] : {};
@@ -2517,6 +2583,7 @@ module.exports = WebAPIClient;
     async.everyLimit = _createTester(async.eachOfLimit, notId, notId);
 
     function _findGetResult(v, x) {
+	console.log("In  function _findGetResult in client sdk");
         return x;
     }
     async.detect = _createTester(async.eachOf, identity, _findGetResult);
@@ -3101,6 +3168,7 @@ module.exports = WebAPIClient;
     };
 
     function _console_fn(name) {
+	console.log("In  function _console_fn in client sdk");
         return _restParam(function (fn, args) {
             fn.apply(null, args.concat([_restParam(function (err, args) {
                 if (typeof console === 'object') {
@@ -3239,6 +3307,7 @@ module.exports = WebAPIClient;
     };
 
     function ensureAsync(fn) {
+	console.log("In  function ensureAsync in client sdk");
         return _restParam(function (args) {
             var callback = args.pop();
             args.push(function () {
