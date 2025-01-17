@@ -1,4 +1,5 @@
 (function(KoreSDK){
+    console.log("In function function(KoreSDK) in kore-config.js");
 //test
     var KoreSDK=KoreSDK||{};
 
