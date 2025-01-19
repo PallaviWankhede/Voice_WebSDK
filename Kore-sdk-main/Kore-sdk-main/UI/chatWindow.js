@@ -5169,7 +5169,7 @@
 		
 		    // Ensure 'me' is valid and call isMobile() from the chatWindow prototype
 		    if (me.isMobile && typeof me.isMobile === "function") {
-			console.log("In me.isMobile && typeof me.isMobi function"");
+			console.log("In me.isMobile && typeof me.isMobi function");
 		        mobileBrowserOpened = me.isMobile();
 		    }	
 			    if (recognizing && sessionStorage.getItem("mic") == 'true') {
