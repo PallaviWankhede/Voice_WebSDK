@@ -5161,12 +5161,26 @@
                     //console.log('final: ',final_transcript);
 			
 	// hoonartek Kore customization for mic on off - Navya
-                    if (recognizing && sessionStorage.getItem("mic")== 'true') {
-			console.log("In recognizing && sessionStorage If condition");
-                        $('.chatInputBox').html(prevStr + "" + interim_transcript);
-                        $('.sendButton').removeClass('disabled');
-                        micEnable();
-                    }
+   //                  if (recognizing && sessionStorage.getItem("mic")== 'true') {
+			// console.log("In recognizing && sessionStorage If condition");
+   //                      $('.chatInputBox').html(prevStr + "" + interim_transcript);
+   //                      $('.sendButton').removeClass('disabled');
+   //                      micEnable();
+   //                  }
+		//pallavi
+			if (recognizing && sessionStorage.getItem("mic") == 'true') {
+		            console.log("In recognizing && sessionStorage If condition");
+		            if (!isAndroid()) {
+		                // For Windows: Show both final and interim transcript
+		                $('.chatInputBox').html(prevStr + "" + interim_transcript);
+		            } else {
+		                // For Android: Only show the final transcript
+		                $('.chatInputBox').html(prevStr);
+		            }
+		            $('.sendButton').removeClass('disabled');
+		            micEnable();
+		        }
+		//pallavi
                 // Hoonartek kore customization starts
                     if (final_transcript !== "") {
 			console.log("In final_transcript If condition");
@@ -5207,6 +5221,11 @@
                 recognition.lang = chatInitialize.config.stt.webapi.recognitionLanguage;
                 recognition.start();
             }
+		//pallavi
+	    function isAndroid() {
+		    return /Android/i.test(navigator.userAgent);
+		}
+		//pallavi
             function startGoogleSpeech() {
 		console.log("In function startGoogleSpeech");
                 if (rec) {
