@@ -5045,9 +5045,9 @@
 			    final_transcript = '';
 			    var interim_transcript = '';
 			    var speechEndTimer = null; // Timer to handle speech-end delay
-			    var SPEECH_END_DELAY = 2000; // 1.5-second delay for detecting speech end
+			    var SPEECH_END_DELAY = 1500; // 1.5-second delay for detecting speech end
 			    var inputSent = false; // Flag to track if the input is already sent
-			    var me = window.chatContainerConfig || {};  
+			
 			    for (var i = event.resultIndex; i < event.results.length; ++i) {
 			        if (event.results[i].isFinal) {
 			            final_transcript += event.results[i][0].transcript;
@@ -5062,17 +5062,18 @@
 			    console.log('Interim: ', interim_transcript);
 			    console.log('Final: ', final_transcript);
 			
+			    // Default object for me (your chat configuration or container)
+			    var me = window.chatContainerConfig || {};  // Set to empty object if undefined
+			
 			    // Detect if the browser is Android Chrome
 			    var isAndroidChrome = /android/i.test(navigator.userAgent) && /chrome/i.test(navigator.userAgent);
 			
 			    // Update input box with interim results (common for all platforms except Android Chrome)
-			    if (recognizing && sessionStorage.getItem("mic") == 'true') {
-			        if (!isAndroidChrome) {
-			            console.log("Updating input box with interim results on non-Android...");
-			            $('.chatInputBox').html(prevStr + interim_transcript); // Show only interim results
-			            $('.sendButton').removeClass('disabled');
-			            micEnable();
-			        }
+			    if (recognizing && sessionStorage.getItem("mic") == 'true' && !isAndroidChrome) {
+			        console.log("Updating input box with interim results on non-Android...");
+			        $('.chatInputBox').html(prevStr + interim_transcript); // Show only interim results
+			        $('.sendButton').removeClass('disabled');
+			        micEnable();
 			    }
 			
 			    // Handle Android-specific behavior
@@ -5085,15 +5086,25 @@
 			        speechEndTimer = setTimeout(function () {
 			            if (final_transcript !== "" && !inputSent) {
 			                console.log("Speech ended on Android Chrome. Sending final transcript...");
-			                $('.chatInputBox').html(final_transcript); // Update input box with final text
-			                me.sendMessage($('.chatInputBox'));
+			
+			                // Update input box with final transcript
+			                $('.chatInputBox').html(final_transcript);
+			
+			                // Send the message only if it's not already sent
+			                if (!inputSent) {
+			                    if (me.sendMessage) {  // Ensure me.sendMessage is defined
+			                        me.sendMessage($('.chatInputBox'));
+			                    }
+			
+			                    // Set the flag to true to prevent sending again
+			                    inputSent = true;
+			                }
 			
 			                // Reset variables to prevent duplicate input
 			                final_transcript = "";
 			                prevStr = "";
-			                inputSent = true;
 			
-			                // Stop recognition
+			                // Stop recognition (don't restart until bot responds)
 			                recognition.stop();
 			            }
 			        }, SPEECH_END_DELAY);
@@ -5103,7 +5114,10 @@
 			    if (!isAndroidChrome && final_transcript !== "") {
 			        console.log("Final transcript detected on non-Android. Sending now...");
 			        $('.chatInputBox').html(final_transcript); // Update input box with final text
-			        me.sendMessage($('.chatInputBox'));
+			
+			        if (me.sendMessage) {  // Ensure me.sendMessage is defined
+			            me.sendMessage($('.chatInputBox'));
+			        }
 			
 			        // Reset variables to prevent duplicate input
 			        final_transcript = "";
