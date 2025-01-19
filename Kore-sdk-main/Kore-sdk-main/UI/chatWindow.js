@@ -5145,64 +5145,88 @@
 
                 recognition.onresult = function (event) {
 		    console.log("In recognition.onresult");
-                    final_transcript = '';
-                    var interim_transcript = '';
-                    for (var i = event.resultIndex; i < event.results.length; ++i) {
-                        if (event.results[i].isFinal) {
-                            final_transcript += event.results[i][0].transcript;
-                        } else {
-                            interim_transcript += event.results[i][0].transcript;
-                        }
-                    }
-                    final_transcript = capitalize(final_transcript);
-                    final_transcript = linebreak(final_transcript);
-                    interim_transcript = linebreak(interim_transcript);
-                    if (final_transcript !== "") {
-                        prevStr += final_transcript;
-                    }
-                    //console.log('Interm: ',interim_transcript);
-                    //console.log('final: ',final_transcript);
-			
-		    //pallavi
-		    var me = window.chatContainerConfig || {};  // Default to an empty object if not available
+		
+		    final_transcript = '';
+		    var interim_transcript = '';
+		    var speechEndTimer = null; // Timer to handle speech end
+		    var SPEECH_END_DELAY = 1000; // 1-second delay for speech end detection
+		
+		    for (var i = event.resultIndex; i < event.results.length; ++i) {
+		        if (event.results[i].isFinal) {
+		            final_transcript += event.results[i][0].transcript;
+		        } else {
+		            interim_transcript += event.results[i][0].transcript;
+		        }
+		    }
+		
+		    final_transcript = capitalize(final_transcript);
+		    final_transcript = linebreak(final_transcript);
+		    interim_transcript = linebreak(interim_transcript);
+		
+		    if (final_transcript !== "") {
+		        prevStr += final_transcript;
+		    }
+		
+		    console.log('Interim: ', interim_transcript);
+		    console.log('Final: ', final_transcript);
+		
+		    // Detect if the browser is mobile
+		    var me = window.chatContainerConfig || {}; // Default to empty object
 		    var mobileBrowserOpened = false;
 		
-		    // Ensure 'me' is valid and call isMobile() from the chatWindow prototype
 		    if (me.isMobile && typeof me.isMobile === "function") {
-			console.log("In me.isMobile && typeof me.isMobi function");
+		        console.log("Detecting mobile browser...");
 		        mobileBrowserOpened = me.isMobile();
-		    }	
-			    if (recognizing && sessionStorage.getItem("mic") == 'true') {
-			        console.log("In recognizing && sessionStorage If condition");
-			
-			        // Show final transcript only for mobile (Android)
-			        if (mobileBrowserOpened) {                  
-					console.log("In mobileBrowserOpened condition");
-		                        $('.chatInputBox').html(prevStr + "" + interim_transcript);
-		                        $('.sendButton').removeClass('disabled');
-		                        micEnable();   
-			        } else {
-			            // For desktop, show both interim and final results
-				     console.log("In mobileBrowserOpened else");
-			             $('.chatInputBox').html(prevStr + "" + interim_transcript);
-		                     $('.sendButton').removeClass('disabled');
-		                     micEnable();  
-			        }
-			    }
-			
-			    // For mobile, ensure the final transcript is only sent after the user stops speaking
-			    if (!mobileBrowserOpened && final_transcript !== "") {
-			        console.log("!mobileBrowserOpened && final_transcript desktop");
-			        var me = window.chatContainerConfig;
-			        me.sendMessage($('.chatInputBox'));
-			        
-			        // Reset final_transcript after sending
-			        final_transcript = ""; 
-			        prevStr = "";
-			
-			        // Stop recognition after sending
-			        recognition.stop();  
-			    }
+		    }
+		
+		    // Update input box with interim results
+		    if (recognizing && sessionStorage.getItem("mic") == 'true') {
+		        console.log("Updating input box with interim results...");
+		
+		        $('.chatInputBox').html(prevStr + interim_transcript);
+		        $('.sendButton').removeClass('disabled');
+		        micEnable();
+		    }
+		
+		    // Mobile: Send message only after user stops speaking
+		    if (mobileBrowserOpened) {
+		        if (speechEndTimer) {
+		            clearTimeout(speechEndTimer); // Reset the timer
+		        }
+		
+		        // Set a timer to send the message after detecting speech has ended
+		        speechEndTimer = setTimeout(function () {
+		            if (final_transcript !== "") {
+		                console.log("Speech ended on mobile. Sending final transcript...");
+		
+		                $('.chatInputBox').html(prevStr); // Update with final text
+		                me.sendMessage($('.chatInputBox'));
+		
+		                // Reset variables
+		                final_transcript = "";
+		                prevStr = "";
+		
+		                // Stop recognition
+		                recognition.stop();
+		            }
+		        }, SPEECH_END_DELAY);
+		    }
+		
+		    // Desktop: Send final transcript immediately
+		    if (!mobileBrowserOpened && final_transcript !== "") {
+		        console.log("Final transcript detected on desktop. Sending now...");
+		
+		        $('.chatInputBox').html(prevStr);
+		        me.sendMessage($('.chatInputBox'));
+		
+		        // Reset variables
+		        final_transcript = "";
+		        prevStr = "";
+		
+		        // Stop recognition
+		        recognition.stop();
+		    }
+		};
 			//pallavi
 	// hoonartek Kore customization for mic on off - Navya
    //                  if (recognizing && sessionStorage.getItem("mic")== 'true') {
