@@ -4942,7 +4942,6 @@
                     }else{
                         console.warn("Please uncomment Google Speech files('speech/app.js','speech/key.js' and 'client_api.js' in index.html")
                     }
-        
                 }
             },2000);
             function isChrome() {
@@ -5041,14 +5040,12 @@
                 // Hoonartek customization ends
 
 		    recognition.onresult = function (event) {
-			    console.log("In recognition.onresult");
-			
+			console.log("In recognition onresult");
 			    final_transcript = '';
 			    var interim_transcript = '';
 			    var speechEndTimer = null; // Timer to handle speech-end delay
 			    var SPEECH_END_DELAY = 1500; // 1.5-second delay for detecting speech end
 			    var inputSent = false; // Flag to track if the input is already sent
-			
 			    for (var i = event.resultIndex; i < event.results.length; ++i) {
 			        if (event.results[i].isFinal) {
 			            final_transcript += event.results[i][0].transcript;
@@ -5056,27 +5053,22 @@
 			            interim_transcript += event.results[i][0].transcript;
 			        }
 			    }
-			
 			    final_transcript = capitalize(final_transcript);
 			    final_transcript = linebreak(final_transcript);
 			    interim_transcript = linebreak(interim_transcript);
-			
 			    if (final_transcript !== "") {
 			        prevStr += final_transcript;
 			    }
-			
 			    console.log('Interim: ', interim_transcript);
 			    console.log('Final: ', final_transcript);
 			
 			    // Detect if the browser is mobile
 			    var me = window.chatContainerConfig || {}; // Default to empty object
 			    var mobileBrowserOpened = false;
-			
 			    if (me.isMobile && typeof me.isMobile === "function") {
 			        console.log("Detecting mobile browser...");
 			        mobileBrowserOpened = me.isMobile();
 			    }
-			
 			    // Update input box with interim results (common for mobile and desktop)
 			    if (recognizing && sessionStorage.getItem("mic") == 'true') {
 			        console.log("Updating input box with interim results...");
@@ -5084,26 +5076,21 @@
 			        $('.sendButton').removeClass('disabled');
 			        micEnable();
 			    }
-			
 			    // Handle mobile browser behavior
 			    if (mobileBrowserOpened) {
 			        if (speechEndTimer) {
 			            clearTimeout(speechEndTimer); // Reset the speech-end timer
 			        }
-			
 			        // Set a timer to send the message after detecting speech has ended
 			        speechEndTimer = setTimeout(function () {
 			            if (final_transcript !== "" && !inputSent) {
 			                console.log("Speech ended on mobile. Sending final transcript...");
-			
 			                $('.chatInputBox').html(prevStr); // Update input box with final text
 			                me.sendMessage($('.chatInputBox'));
-			
 			                // Reset variables to prevent duplicate input
 			                final_transcript = "";
 			                prevStr = "";
 			                inputSent = true;
-			
 			                // Stop recognition
 			                recognition.stop();
 			            }
@@ -5113,14 +5100,11 @@
 			    // Handle desktop browser behavior
 			    if (!mobileBrowserOpened && final_transcript !== "") {
 			        console.log("Final transcript detected on desktop. Sending now...");
-			
 			        $('.chatInputBox').html(prevStr); // Update input box with final text
 			        me.sendMessage($('.chatInputBox'));
-			
 			        // Reset variables to prevent duplicate input
 			        final_transcript = "";
 			        prevStr = "";
-			
 			        // Stop recognition
 			        recognition.stop();
 			    }
@@ -5131,7 +5115,6 @@
                         document.getElementsByClassName('chatInputBox')[0].scrollTop = document.getElementsByClassName('chatInputBox')[0].scrollHeight;
                     }, 350);
                 };
-            }
 
             var two_line = /\n\n/g;
             var one_line = /\n/g;
