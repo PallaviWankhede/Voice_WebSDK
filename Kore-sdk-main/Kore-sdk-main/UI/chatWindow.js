@@ -5048,6 +5048,7 @@
 			    var SPEECH_END_DELAY = 1500; // 1.5-second delay for detecting speech end
 			    var inputSent = false; // Flag to track if the input is already sent
 			
+			    // Collect the results from the speech recognition
 			    for (var i = event.resultIndex; i < event.results.length; ++i) {
 			        if (event.results[i].isFinal) {
 			            final_transcript += event.results[i][0].transcript;
@@ -5092,6 +5093,7 @@
 			
 			                // Send the message only if it's not already sent
 			                if (!inputSent) {
+			                    console.log("Sending message to bot...");
 			                    if (me.sendMessage) {  // Ensure me.sendMessage is defined
 			                        me.sendMessage($('.chatInputBox'));
 			                    }
@@ -5115,6 +5117,7 @@
 			        console.log("Final transcript detected on non-Android. Sending now...");
 			        $('.chatInputBox').html(final_transcript); // Update input box with final text
 			
+			        // Send the message
 			        if (me.sendMessage) {  // Ensure me.sendMessage is defined
 			            me.sendMessage($('.chatInputBox'));
 			        }
