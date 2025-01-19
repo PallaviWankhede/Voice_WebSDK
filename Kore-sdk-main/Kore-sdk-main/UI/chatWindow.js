@@ -5140,100 +5140,36 @@
                     $('.notRecordingMicrophone').css('display', 'block');
                 };
 
- //                recognition.onresult = function (event) {
-	// 	    console.log("In recognition.onresult");
- //                    final_transcript = '';
- //                    var interim_transcript = '';
- //                    for (var i = event.resultIndex; i < event.results.length; ++i) {
- //                        if (event.results[i].isFinal) {
- //                            final_transcript += event.results[i][0].transcript;
- //                        } else {
- //                            interim_transcript += event.results[i][0].transcript;
- //                        }
- //                    }
- //                    final_transcript = capitalize(final_transcript);
- //                    final_transcript = linebreak(final_transcript);
- //                    interim_transcript = linebreak(interim_transcript);
- //                    if (final_transcript !== "") {
- //                        prevStr += final_transcript;
- //                    }
- //                    //console.log('Interm: ',interim_transcript);
- //                    //console.log('final: ',final_transcript);
+                recognition.onresult = function (event) {
+		    console.log("In recognition.onresult");
+                    final_transcript = '';
+                    var interim_transcript = '';
+                    for (var i = event.resultIndex; i < event.results.length; ++i) {
+                        if (event.results[i].isFinal) {
+                            final_transcript += event.results[i][0].transcript;
+                        } else {
+                            interim_transcript += event.results[i][0].transcript;
+                        }
+                    }
+                    final_transcript = capitalize(final_transcript);
+                    final_transcript = linebreak(final_transcript);
+                    interim_transcript = linebreak(interim_transcript);
+                    if (final_transcript !== "") {
+                        prevStr += final_transcript;
+                    }
+                    //console.log('Interm: ',interim_transcript);
+                    //console.log('final: ',final_transcript);
 			
-	// // hoonartek Kore customization for mic on off - Navya
- //                    if (recognizing && sessionStorage.getItem("mic")== 'true') {
-	// 		console.log("In recognizing && sessionStorage If condition");
- //                        $('.chatInputBox').html(prevStr + "" + interim_transcript);
- //                        $('.sendButton').removeClass('disabled');
- //                        micEnable();
- //                    }
+	// hoonartek Kore customization for mic on off - Navya
+                    if (recognizing && sessionStorage.getItem("mic")== 'true') {
+			console.log("In recognizing && sessionStorage If condition");
+                        $('.chatInputBox').html(prevStr + "" + interim_transcript);
+                        $('.sendButton').removeClass('disabled');
+                        micEnable();
+                    }
                     
-		    //pallavi
-		    recognition.onresult = function (event) {
-			    console.log("In recognition.onresult");
-			    final_transcript = '';
-			    var interim_transcript = '';
-			
-			    // Loop through the results
-			    for (var i = event.resultIndex; i < event.results.length; ++i) {
-			        if (event.results[i].isFinal) {
-			            final_transcript += event.results[i][0].transcript;
-			        } else {
-			            interim_transcript += event.results[i][0].transcript;
-			        }
-			    }
-			
-			    final_transcript = capitalize(final_transcript);
-			    final_transcript = linebreak(final_transcript);
-			    interim_transcript = linebreak(interim_transcript);
-			
-			    if (final_transcript !== "") {
-			        prevStr += final_transcript;
-			    }
-			
-			    var mobileBrowserOpened = me.isMobile();
-			
-			    if (recognizing && sessionStorage.getItem("mic") == 'true') {
-			        console.log("In recognizing && sessionStorage If condition");
-			
-			        // Show final transcript only for mobile (Android)
-			        if (mobileBrowserOpened) {
-			            // Delay sending the message after the user stops speaking
-			            clearTimeout(mobileBrowserOpened.timer);  // Clear previous timer if any
-			            mobileBrowserOpened.timer = setTimeout(function () {
-			                // Send the message after a small delay (for silence detection)
-			                $('.chatInputBox').html(prevStr);
-			                $('.sendButton').removeClass('disabled');
-			                micEnable();
-			                var me = window.chatContainerConfig;
-			                me.sendMessage($('.chatInputBox'));
-			
-			                // Reset after sending the message
-			                prevStr = "";
-			                final_transcript = "";
-			                recognition.stop();  // Stop recognition after sending
-			            }, 500);  // Wait for 500ms after the last interim result before sending
-			        } else {
-			            // For desktop, show both interim and final results
-			            $('.chatInputBox').html(prevStr + "" + interim_transcript);
-			        }
-			    }
-			
-			    // For mobile, ensure the final transcript is only sent after the user stops speaking
-			    if (!mobileBrowserOpened && final_transcript !== "") {
-			        console.log("In final_transcript If condition for desktop");
-			
-			        var me = window.chatContainerConfig;
-			        me.sendMessage($('.chatInputBox'));
-			        
-			        // Reset final_transcript after sending
-			        final_transcript = ""; 
-			        prevStr = "";
-			
-			        // Stop recognition after sending
-			        recognition.stop();  
-			    }
-			}
+		//pallavi
+		   
 		//pallavi
                 // Hoonartek kore customization starts
                     if (final_transcript !== "") {
