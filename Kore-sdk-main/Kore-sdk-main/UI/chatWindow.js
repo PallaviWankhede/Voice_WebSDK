@@ -5169,6 +5169,7 @@
 		
 		    // Ensure 'me' is valid and call isMobile() from the chatWindow prototype
 		    if (me.isMobile && typeof me.isMobile === "function") {
+			console.log("In me.isMobile && typeof me.isMobi function"");
 		        mobileBrowserOpened = me.isMobile();
 		    }	
 			    if (recognizing && sessionStorage.getItem("mic") == 'true') {
@@ -5176,12 +5177,13 @@
 			
 			        // Show final transcript only for mobile (Android)
 			        if (mobileBrowserOpened) {                  
-					console.log("In recognizing && sessionStorage If condition");
+					console.log("In mobileBrowserOpened condition");
 		                        $('.chatInputBox').html(prevStr + "" + interim_transcript);
 		                        $('.sendButton').removeClass('disabled');
 		                        micEnable();   
 			        } else {
 			            // For desktop, show both interim and final results
+				     console.log("In mobileBrowserOpened else");
 			             $('.chatInputBox').html(prevStr + "" + interim_transcript);
 		                     $('.sendButton').removeClass('disabled');
 		                     micEnable();  
@@ -5190,8 +5192,7 @@
 			
 			    // For mobile, ensure the final transcript is only sent after the user stops speaking
 			    if (!mobileBrowserOpened && final_transcript !== "") {
-			        console.log("In final_transcript If condition for desktop");
-			
+			        console.log("!mobileBrowserOpened && final_transcript desktop");
 			        var me = window.chatContainerConfig;
 			        me.sendMessage($('.chatInputBox'));
 			        
