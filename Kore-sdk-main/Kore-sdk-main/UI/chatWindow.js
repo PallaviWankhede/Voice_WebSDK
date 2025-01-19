@@ -155,103 +155,17 @@
 
     return function koreBotChat() {
 		console.log("In function koreBotChat");
-	    	//pallavi
-	    	window.micState = false;
-		window.toggleMicrophone = async function toggleMicrophone() {
-		    try {
-		        const micButton = document.getElementById("mic-btn");
-		        const userAgent = navigator.userAgent.toLowerCase();
-		
-		        // Detect if the device is Android
-		        const isAndroid = /android/.test(userAgent);
-		
-		        if (isAndroid) {
-		            console.log("Android device detected. Using Android-specific microphone handling.");
-		            await toggleAndroidMic(); // Call Android-specific mic handling
-		            return;
-		        }
-		
-		        // Default behavior for non-Android devices (e.g., Laptop/Chrome)
-		        window.micState = !window.micState;
-		
-		        if (window.micState) {
-		            // Start microphone access
-		            const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-		            micButton.style.backgroundColor = "lightgreen";
-		            console.log("Microphone access granted.");
-		            window.activeMicStream = stream;
-		        } else {
-		            // Stop microphone access
-		            if (window.activeMicStream) {
-		                const tracks = window.activeMicStream.getTracks();
-		                tracks.forEach(track => track.stop());
-		                console.log("Microphone access stopped.");
-		            }
-		            micButton.style.backgroundColor = "gray";
-		        }
-		    } catch (error) {
-		        console.error("Error accessing microphone:", error.message);
-		        alert("Microphone access is required for this feature.");
-		        // Reset mic state
-		        window.micState = false;
-		        document.getElementById("mic-btn").style.backgroundColor = "gray";
-		    }
-		};
-
-	    // Android-specific microphone handling
-		async function toggleAndroidMic() {
-		    try {
-		        const micButton = document.getElementById("mic-btn");
-		        
-		        // Toggle mic state
-		        window.micState = !window.micState;
-		
-		        if (window.micState) {
-		            // Start microphone access
-		            const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-		            micButton.style.backgroundColor = "lightgreen";
-		            console.log("Microphone access granted on Android.");
-		
-		            // Use AudioContext for better Android microphone stream handling
-		            const audioContext = new AudioContext();
-		            const source = audioContext.createMediaStreamSource(stream);
-		
-		            // Example: Add a gain node for Android
-		            const gainNode = audioContext.createGain();
-		            gainNode.gain.value = 1; // Adjust the gain value if needed
-		
-		            source.connect(gainNode).connect(audioContext.destination);
-		            window.activeMicStream = stream;
-		        } else {
-		            // Stop microphone access
-		            if (window.activeMicStream) {
-		                const tracks = window.activeMicStream.getTracks();
-		                tracks.forEach(track => track.stop());
-		                console.log("Microphone access stopped on Android.");
-		            }
-		            micButton.style.backgroundColor = "gray";
-		        }
-		    } catch (error) {
-		        console.error("Error accessing microphone on Android:", error.message);
-		        alert("Microphone access is required for this feature on Android.");
-		        // Reset mic state
-		        window.micState = false;
-		        document.getElementById("mic-btn").style.backgroundColor = "gray";
-		    }
-		}
-
-	        //pallavi
 	// hoonartek kore Customization for mic starts
-	        // window.micAutoOnOff = false;
-	        // window.enableMicAutoOnOff = function enableMicAutoOnOff(){
-	        //     window.micAutoOnOff = !window.micAutoOnOff;
-	        //     if (window.micAutoOnOff){
-	        //         document.getElementById("mic-auto-btn").style.backgroundColor = "lightgreen";
-	        //         document.getElementById('notRecordingMicBtn').click();
-	        //     }else{
-	        //         document.getElementById("mic-auto-btn").style.backgroundColor = "gray";
-	        //     }
-	        // }
+	        window.micAutoOnOff = false;
+	        window.enableMicAutoOnOff = function enableMicAutoOnOff(){
+	            window.micAutoOnOff = !window.micAutoOnOff;
+	            if (window.micAutoOnOff){
+	                document.getElementById("mic-auto-btn").style.backgroundColor = "lightgreen";
+	                document.getElementById('notRecordingMicBtn').click();
+	            }else{
+	                document.getElementById("mic-auto-btn").style.backgroundColor = "gray";
+	            }
+	        }
 	    	
 	// hoonartek kore Customization for mic
         var koreJquery;
