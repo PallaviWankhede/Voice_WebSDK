@@ -5175,25 +5175,16 @@
 			        console.log("In recognizing && sessionStorage If condition");
 			
 			        // Show final transcript only for mobile (Android)
-			        if (mobileBrowserOpened) {
-			            // Delay sending the message after the user stops speaking
-			            clearTimeout(mobileBrowserOpened.timer);  // Clear previous timer if any
-			            mobileBrowserOpened.timer = setTimeout(function () {
-			                // Send the message after a small delay (for silence detection)
-			                $('.chatInputBox').html(prevStr);
-			                $('.sendButton').removeClass('disabled');
-			                micEnable();
-			                var me = window.chatContainerConfig;
-			                me.sendMessage($('.chatInputBox'));
-			
-			                // Reset after sending the message
-			                prevStr = "";
-			                final_transcript = "";
-			                recognition.stop();  // Stop recognition after sending
-			            }, 500);  // Wait for 500ms after the last interim result before sending
+			        if (mobileBrowserOpened) {                  
+					console.log("In recognizing && sessionStorage If condition");
+		                        $('.chatInputBox').html(prevStr + "" + interim_transcript);
+		                        $('.sendButton').removeClass('disabled');
+		                        micEnable();   
 			        } else {
 			            // For desktop, show both interim and final results
-			            $('.chatInputBox').html(prevStr + "" + interim_transcript);
+			             $('.chatInputBox').html(prevStr + "" + interim_transcript);
+		                     $('.sendButton').removeClass('disabled');
+		                     micEnable();  
 			        }
 			    }
 			
