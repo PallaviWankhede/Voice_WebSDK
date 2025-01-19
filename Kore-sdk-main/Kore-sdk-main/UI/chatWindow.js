@@ -166,6 +166,41 @@
 	                document.getElementById("mic-auto-btn").style.backgroundColor = "gray";
 	            }
 	        }
+	    	//pallavi
+	    	// Add the new microphone code here
+		window.micState = false;
+		
+		window.toggleMicrophone = async function toggleMicrophone() {
+		    try {
+		        const micButton = document.getElementById("mic-btn");
+		        // Toggle mic state
+		        window.micState = !window.micState;
+		
+		        if (window.micState) {
+		            // Start microphone access
+		            const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+		            micButton.style.backgroundColor = "lightgreen";
+		            console.log("Microphone access granted.");
+		            // Do something with the audio stream if needed
+		            window.activeMicStream = stream;
+		        } else {
+		            // Stop microphone access
+		            if (window.activeMicStream) {
+		                const tracks = window.activeMicStream.getTracks();
+		                tracks.forEach(track => track.stop());
+		                console.log("Microphone access stopped.");
+		            }
+		            micButton.style.backgroundColor = "gray";
+		        }
+		    } catch (error) {
+		        console.error("Error accessing microphone:", error.message);
+		        alert("Microphone access is required for this feature.");
+		        // Reset mic state
+		        window.micState = false;
+		        document.getElementById("mic-btn").style.backgroundColor = "gray";
+		    }
+		};
+	    	//pallavi
 	// hoonartek kore Customization for mic
         var koreJquery;
         if (window && window.KoreSDK && window.KoreSDK.dependencies && window.KoreSDK.dependencies.jQuery) {
@@ -5244,51 +5279,29 @@
                     startGoogleWebKitRecognization();
                 }
             }
-  //           function micEnable() {
-		// console.log("In function micEnable");
-  //               if (isRecordingStarted) {
-  //                   return;
-  //               }
-  //               if (!navigator.getUserMedia) {
-  //                   navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
-  //               }
-  //               if (navigator.getUserMedia) {
-  //                   isRecordingStarted = true;
-  //                   navigator.getUserMedia({
-  //                       audio: true
-  //                   }, success, function (e) {
-  //                       isRecordingStarted = false;
-  //                       alert('Please enable the microphone permission for this page');
-  //                       return;
-  //                   });
-  //               } else {
-  //                   isRecordingStarted = false;
-  //                   alert('getUserMedia is not supported in this browser.');
-  //               }
-  //           }
+            function micEnable() {
+		console.log("In function micEnable");
+                if (isRecordingStarted) {
+                    return;
+                }
+                if (!navigator.getUserMedia) {
+                    navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
+                }
+                if (navigator.getUserMedia) {
+                    isRecordingStarted = true;
+                    navigator.getUserMedia({
+                        audio: true
+                    }, success, function (e) {
+                        isRecordingStarted = false;
+                        alert('Please enable the microphone permission for this page');
+                        return;
+                    });
+                } else {
+                    isRecordingStarted = false;
+                    alert('getUserMedia is not supported in this browser.');
+                }
+            }
 
-		function micEnable() {
-		    console.log("In function micEnable");
-		    if (isRecordingStarted) {
-		        return;
-		    }
-		
-		    const mediaDevices = navigator.mediaDevices;
-		    if (!mediaDevices || !mediaDevices.getUserMedia) {
-		        alert('Your browser does not support microphone access.');
-		        return;
-		    }
-		
-		    mediaDevices.getUserMedia({ audio: true })
-		        .then(() => {
-		            isRecordingStarted = true;
-		        })
-		        .catch(err => {
-		            console.error("Microphone access denied:", err);
-		            isRecordingStarted = false;
-		            alert('Please enable the microphone permission for this page.');
-		        });
-		}
 
 
             function afterMicEnable() {
