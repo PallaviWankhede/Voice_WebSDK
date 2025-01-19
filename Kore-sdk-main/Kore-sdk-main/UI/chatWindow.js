@@ -1,5 +1,4 @@
 (function (factory) {
-    console.log("In Factory Function");
     // if (typeof define === 'function' && define.amd) { // AMD
     //    define(factory);
     //  } else if (typeof module !== 'undefined') {      // CommonJS
@@ -8,7 +7,6 @@
     window.koreBotChat = factory();
     //}
 })(function () {
-     console.log("In below Factory Function");
     // hoonartek customization starts Done : button and for checkboxes template None of the above - ALok
      $(document).on('click', '.listTmplContent', function() {
         let sdcVal= Number(sessionStorage.getItem('sdc'))
@@ -154,7 +152,6 @@
 
 
     return function koreBotChat() {
-		console.log("In function koreBotChat");
 	// hoonartek kore Customization for mic starts
 	        window.micAutoOnOff = false;
 	        window.enableMicAutoOnOff = function enableMicAutoOnOff(){
@@ -166,7 +163,6 @@
 	                document.getElementById("mic-auto-btn").style.backgroundColor = "gray";
 	            }
 	        }
-	    	
 	// hoonartek kore Customization for mic
         var koreJquery;
         if (window && window.KoreSDK && window.KoreSDK.dependencies && window.KoreSDK.dependencies.jQuery) {
@@ -266,7 +262,6 @@
             /**************************File upload variable end here **************************/
             var _escPressed = 0;
             chatWindow.prototype.isNotAllowedHTMLTags = function (txtStr) {
-                console.log("In prototype isNotAllowedHTMLTags");
                 var wrapper = document.createElement('div');
                 wrapper.innerHTML = txtStr;
 
@@ -311,7 +306,6 @@
             };
 
             chatWindow.prototype.escapeHTML = function (txtStr) {
-		console.log("In prototype escapeHTML");
                 //'&': '&amp;',
                 var escapeTokens = {
                     '<': '&lt;',
@@ -326,7 +320,6 @@
             };
 
             chatWindow.prototype.koreReplaceAll = function (str,search, replacement) {
-		console.log("In prototype koreReplaceAll");
                 var target = str;
                 return target.replace(new RegExp(search, 'g'), replacement);
             };
@@ -344,7 +337,6 @@
             }
 
             function findSortedIndex(array, value) {
-		console.log("In function findSortedIndex");
                 var low = 0,
                     high = array.length;
     
@@ -357,7 +349,6 @@
             }
 	//hoonartek kore customization for mic on off
             function readDigitsSeparately(numberString) {
-		console.log("In function readDigitsSeparately");
                 return numberString.split('').join(' '); // Splits the string into an array of characters and joins them with a space
             }
         //hoonartek kore customization for mic on off
@@ -389,15 +380,13 @@
             //     return text.replace(/\.$/, '');
             //   }
 	function reFormatUserText(text) {
-		  console.log("In function reFormatUserText");
 		  const phoneRegex = /^\d{10}$/; // Validates a 10-digit phone number
 		  const policyRegex = /^\d{18}$/; // Validates an 18-digit policy number
 		  const pincodeRegex = /^\d{6}$/; // Validates a 6-digit pincode
 		  const panNumberRegex = /^[A-Z]{5}\d{4}[A-Z]{1}$/; // Validates a PAN number
 		  const passportRegex = /^[A-Z]{1}\d{7}$/; // Validates a passport number (1 letter followed by 7 digits)
 		  const vehicleRegex = /\b[a-z]{2}\d{2}[a-z]{2}\d{4}\b/i; // Validates vehicle registration number
-		  // let removeSpaces = text.replace(/\s/g, "");
-                  let removeSpaces = text.replace(/[\s,.-]/g, "");
+		  let removeSpaces = text.replace(/\s/g, "");
 		 
 		  if (vehicleRegex.test(removeSpaces)) {
 		    return removeSpaces.replace(/(\w{2})(\d{2})(\w{2})(\d{4})/, "$1-$2-$3-$4");
@@ -422,7 +411,6 @@
 		}
             //hoonartek kore customization for mic on off
             function sortSpeakText(speakText,obj){
-		console.log("In function sortSpeakText");
                 let text = speakText;
                 console.log("obj",obj)
                 if(!speakText){
@@ -481,14 +469,12 @@
                         text = text.replace(/\b\d{6,7}\b/g, match => readDigitsSeparately(match));
                         text = text.replace(/\b\d{18}\b/g, match => readDigitsSeparately(match)); //policy number read sep
 		    	text = text.replace(/[😄😊✈️🚗]/g, '', match => readDigitsSeparately(match)); //for emoji prompt
-		        //text = text.replace(/(?!\d{1,2}\/\d{1,2}\/\d{2,4})\//g, ' or '); //pallavi for forward slash
                 return text;
                 //hoonartek kore customization for mic on off
             }
             //hoonartek kore customization for mic on off ends
 		
             function xssAttack(txtStr) {
-		console.log("In function xssAttack");
                 //   if (compObj && compObj[0] && compObj[0].componentType === "text") {
 
                 var textHasXSS;
@@ -503,7 +489,6 @@
 
             }
             function sanitizeXSS(input) {
-		console.log("In function sanitizeXSS");
                 var sanitizedInput = input
                                           .replace(/</g, "&lt;")
                                           .replace(/>/g, "&gt;")
@@ -584,7 +569,6 @@
                     mmntns.fy = new RegExp(/(y{4})|y{2}/g);
                     var regexkeys = Object.keys(mdre);
                     function matchmap(regexval, stringval) {
-			console.log("In function matchmap");
                         var da;
                         var matches = [];
                         while ((da = regexval.exec(stringval)) !== null) {
@@ -602,7 +586,6 @@
                         return matches;
                     }
                     function ucreplacer(match) {
-			    console.log("In function ucreplacer");
                         return match.toUpperCase();
                     }
                     for (var j = 0; j < regexkeys.length; j++) {
@@ -692,11 +675,9 @@
                         }
                     }
                     function nextLnReplacer(match, p1, offset, string) {
-			    console.log("In function nextLnReplacer");
                         return "<br/>";
                     }
                     function ignoreWords(str) {
-			    console.log("In function ignoreWords");
                         var _words = ['onclick', 'onmouse', 'onblur', 'onscroll', 'onStart'];
                         _words.forEach(function (word) {
                             var regEx = new RegExp(word, "ig");
@@ -706,7 +687,6 @@
                     }
                     var nextln = regEx.NEWLINE;
                     function linkreplacer(match, p1, offset, string) {
-			    console.log("In function linkreplacer");
                         var dummyString = string.replace(_regExForMarkdownLink, '[]');
                         dummyString = ignoreWords(dummyString);
                         if (dummyString.indexOf(match) !== -1) {
@@ -1007,7 +987,6 @@
             };
 
             function isEven(n) {
-		    console.log("In function isEven");
                 n = Number(n);
                 return n === 0 || !!(n && !(n % 2));
             }
@@ -1018,7 +997,6 @@
             };
             var previousValue;
             function multipleIndentation(txtArr, i, value) {
-		    console.log("In function multipleIndentation");
                 var indentIndex;
                 var paragraphIndex;
                 var actualValue;
@@ -1040,7 +1018,6 @@
                 }
             }
             function extend() {
-		    console.log("In function extend");
                 var rec = function (obj) {
                     var recRes = {};
                     if (typeof obj === "object" && !Array.isArray(obj)) {
@@ -1073,7 +1050,6 @@
             }
 
             function chatWindow(cfg) {
-		    console.log("In function chatWindow-cfg");
                 this.setPrivateVarToContext(this);
                 isRecordingStarted = false;
                 cfg.botOptions.test = false;
@@ -1107,7 +1083,6 @@
             }
             //converts v1 webhooks url to v2 automatically
             chatWindow.prototype.reWriteWebHookURL = function (chatConfig) {
-		    console.log("In prototype reWriteWebHookURL");
                 if (chatConfig.botOptions && chatConfig.botOptions.webhookConfig && chatConfig.botOptions.webhookConfig.apiVersion && chatConfig.botOptions.webhookConfig.apiVersion === 2) {
                     if (chatConfig.botOptions && chatConfig.botOptions.webhookConfig && chatConfig.botOptions.webhookConfig.webhookURL) {
                         chatConfig.botOptions.webhookConfig.webhookURL = chatConfig.botOptions.webhookConfig.webhookURL.replace('hooks', 'v2/webhook');
@@ -1116,7 +1091,6 @@
             }
             // iframe of child window events //
             function attachEventListener(){
-		    console.log("In function attachEventListener");
                 // Create IE + others compatible event handler
                 var eventMethod = window.addEventListener ? "addEventListener" : "attachEvent";
                 var eventer = window[eventMethod];
@@ -1136,7 +1110,6 @@
                 }, false);
             }
             function postMessageToChildIframes (iframe,postPayload) {
-		    console.log("In function postMessageToChildIframes");
                 if(iframe && iframe.length && iframe[0] && iframe[0].contentWindow && postPayload){
                     iframe[0].contentWindow.postMessage(
                         postPayload, '*'
@@ -1147,7 +1120,6 @@
 
         // inline model for iframes starts here//
         function closeChatModal() {
-		console.log("In function closeChatModal");
             if ($('#chatBodyModal').length) {
                 $('#chatBodyModal').hide();
             }
@@ -1160,7 +1132,6 @@
             }
         }
         function openModal(template, showClose){
-		console.log("In function openModal");
             var chatBodyModal=  $('#chatBodyModal');
             var close = document.getElementsByClassName("closeChatBodyModal")[0];
                 close.onclick = function () {
@@ -1184,7 +1155,6 @@
                     $('.kore-chat-window').addClass('modelOpen');
                 }
                 setTimeout(function(){
-		    console.log("In function setTimeout");
                     chatBodyModal.find('.loading_form').css('z-index',0);
                     if(showClose){
                         chatBodyModal.find('.closeChatBodyModal').css('display','block');
@@ -1205,7 +1175,6 @@
 
         // form event actions starts here //
         function formAction(event){
-		console.log("In function formAction");
             if(event && event.action==='formSubmit'){
                openModal();
                if($('.kore-chat-body .uiformComponent').length){
@@ -1224,7 +1193,6 @@
             }
         }
         chatWindow.prototype.renderWebForm = function (msgData, returnTemplate) {
-		console.log("In prototype renderWebForm");
             var me=this;
             if (msgData.message && msgData.message[0].component && msgData.message[0].component.payload && msgData.message[0].component.payload.formData) {
                 msgData.renderType = msgData.message[0].component.payload.formData.renderType;
@@ -1248,7 +1216,6 @@
         }
         // form event actions ends here //
         function addBottomSlider(){
-		console.log("In function addBottomSlider");
             $('.kore-chat-window').remove('.kore-action-sheet');
             var actionSheetTemplate='<div class="kore-action-sheet hide">\
             <div class="actionSheetContainer"></div>\
@@ -1256,7 +1223,6 @@
             $('.kore-chat-window').append(actionSheetTemplate);
             }
         function updateOnlineStatus() {
-		console.log("In function updateOnlineStatus");
             if ("boolean" === typeof(navigator["onLine"])) {
                 if (navigator.onLine) {
                     this.hideError();
@@ -1271,7 +1237,6 @@
         }
 
             chatWindow.prototype.resetPingMessage =function(){
-		    console.log("In prototype resetPingMessage");
                 var me=this;
                 clearTimeout(me._pingTimer);
                 me._pingTimer = setTimeout(function () {
@@ -1284,7 +1249,6 @@
                 }, me._pingTime);
             }
             window.onresize = function (event) {
-		    console.log("In window onresize");
                 var me=chatInitialize;
                 if (event.target === window) {
                      chatInitialize.setCollapsedModeStyles();
@@ -1361,7 +1325,6 @@
                 /* Handling expand and collapse chat-container height */
             };
             chatWindow.prototype.handleImagePreview = function () {
-		console.log("In prototype handleImagePreview");
                 var modal = document.getElementById('myModal');
 
                 // Get the image and insert it inside the modal - use its "alt" text as a caption
@@ -1445,7 +1408,6 @@
                 }
             }
             chatWindow.prototype.isMobile = function() {
-		    console.log("In prototype isMobile");
                 try {
                     var isMobile = (/iphone|ipod|android|blackberry|fennec/).test(navigator.userAgent.toLowerCase()) || window.screen.width <= 480;
                     return isMobile;
@@ -1455,29 +1417,24 @@
                 }
             }
             chatWindow.prototype.setCollapsedModeStyles = function (){
-		console.log("In prototype setCollapsedModeStyles");
                 $('.kore-chat-window').css({left:$('body').width()-480,width:'480px'});
             }
             chatWindow.prototype.setLocalStoreItem = function (key,value){
-		console.log("In prototype setLocalStoreItem");
                 var me=this;
                 var storage=me.getStoreTypeByKey(key);
                 return window[storage].setItem(key,value);
             }
             chatWindow.prototype.getLocalStoreItem = function (key){
-		console.log("In prototype getLocalStoreItem");
                 var me=this;
                 var storage=me.getStoreTypeByKey(key);
                 return window[storage].getItem(key);
             }
             chatWindow.prototype.removeLocalStoreItem = function (key){
-		console.log("In prototype removeLocalStoreItem");
                 var me=this;
                 var storage=me.getStoreTypeByKey(key);
                 return window[storage].removeItem(key);
             }
             chatWindow.prototype.getStoreTypeByKey = function (key){
-		console.log("In prototype getStoreTypeByKey");
                 var me=this;
                 var storage='localStorage';
                 if(key==='kr-cw-uid'){
@@ -1488,7 +1445,6 @@
                 return storage; 
             }
             chatWindow.prototype.init = function () {
-		console.log("In prototype init");
                 var me = this;
                 me.initi18n();
                 me.seti18n((me.config && me.config.i18n && me.config.i18n.defaultLanguage) || 'en');
@@ -1571,7 +1527,6 @@
                 me.unfreezeUIOnHistoryLoadingFail.call(me);
             };
             chatWindow.prototype.initi18n = function () {
-		console.log("In prototype initi18n");
                 var me = this;
                 me.i18n={
                     selectedLanguage:'en',
@@ -1601,7 +1556,6 @@
                 }
             }
             chatWindow.prototype.seti18n = function (lang) {
-		console.log("In prototype seti18n");
                 var me = this;
                 me.i18n.selectedLanguage=lang;
                 me.config.botMessages=botMessages=me.i18n.langFiles[me.i18n.selectedLanguage];
@@ -1628,7 +1582,6 @@
                  }
             }
             chatWindow.prototype.updatei18nDirection = function () {
-		console.log("In prototype updatei18nDirection");
                 var me = this;
                 if(me.i18n.rtlLanguages.indexOf(me.i18n.selectedLanguage)>-1){
                     me.config.chatContainer.attr('dir','rtl');
@@ -1637,7 +1590,6 @@
                 }
             }
             chatWindow.prototype.setPrivateVarToContext = function (_this) {
-		console.log("In prototype setPrivateVarToContext");
                 _this.messagesQueue = messagesQueue,
                 _this.historyLoading = historyLoading,
                 _this.loadHistory = loadHistory;
@@ -1655,7 +1607,6 @@
                 _this._pingTime = _pingTime;
             }
             chatWindow.prototype.destroy = function () {
-		console.log("In prototype destroy");
                 var me = this;
                 $('.kore-chat-overlay').hide();
                 me.bot.close();
@@ -1683,7 +1634,6 @@
             };
 
             chatWindow.prototype.resetWindow = function () {
-		console.log("In prototype resetWindow");
                 var me = this;
                 me.config.chatContainer.find('.kore-chat-header .header-title').html(me.config.botMessages.reconnecting);
                 me.config.chatContainer.find('.chat-container').html("");        // hoonartek customization for clear history after reconnect uncommented
@@ -1694,7 +1644,6 @@
             };
 
             chatWindow.prototype.bindEvents = function () {
-		console.log("In prototype bindEvents");
                 var me = this;
                 me.bindCustomEvents();
                 var _chatContainer = me.config.chatContainer;
@@ -1708,7 +1657,6 @@
                         minWidth: 480
                     });
                 _chatContainer.off('keyup', '.chatInputBox').on('keyup', '.chatInputBox', function (event) {
-		    console.log("_chatContainer.off'keyup'chatInputBox");
                     var _footerContainer = $(me.config.container).find('.kore-chat-footer');
                     var _bodyContainer = $(me.config.container).find('.kore-chat-body');
                     _bodyContainer.css('bottom', _footerContainer.outerHeight());
@@ -1723,27 +1671,22 @@
                     }
                 });
                 _chatContainer.on('click', '.chatInputBoxPlaceholder', function (event) {
-		    console.log("_chatContainer.on'click'chatInputBoxPlaceholder");
                     _chatContainer.find('.chatInputBox').trigger('click');
                     _chatContainer.find('.chatInputBox').trigger('focus');
                 });
                 _chatContainer.on('change', '.lang-selector', function (e) {
-		    console.log("_chatContainer.on'change' lang-selector");
                     var selectedValue=$(e.target).val();
                     me.seti18n(selectedValue);
                     me.updatei18nDirection();
                 });
                 _chatContainer.on('click', '.chatInputBox', function (event) {
-		    console.log("_chatContainer.on'click' chatInputBox");
                     me.prevComposeSelection = window.getSelection();
                     prevRange = me.prevComposeSelection.rangeCount > 0 && me.prevComposeSelection.getRangeAt(0);
                 });
                 _chatContainer.on('blur', '.chatInputBox', function (event) {
-		    console.log("_chatContainer.on'blur' chatInputBox");
                     _escPressed = 0;
                 });
                 _chatContainer.off('click', '.botResponseAttachments').on('click', '.botResponseAttachments', function (event) {
-		    console.log("_chatContainer.off'click' botResponseAttachments");
                     var thisEle = this;
                     if($(event.currentTarget).attr('download')==='true'){
                         var dlink = document.createElement('a');
@@ -1787,7 +1730,6 @@
                     });
                 });*/
                 _chatContainer.off('keydown', '.chatInputBox').on('keydown', '.chatInputBox', function (event) {
-		    console.log("_chatContainer.off'keydown' chatInputBox");
                     var _this = $(this);
                     var _footerContainer = $(me.config.container).find('.kore-chat-footer');
                     var _bodyContainer = $(me.config.container).find('.kore-chat-body');
@@ -1827,14 +1769,12 @@
 
 		  // hoonartek customization for Send button click for sending the message through send button
                 _chatContainer.off('click', '.sendMessageButton').on('click', '.sendMessageButton', function () {
-		    console.log("_chatContainer.off'click' sendMessageButton");
                     var _this = $(me.config.container).find('.chatInputBox'); // Get the input box element
                     me.sendMessage(_this, me.attachmentInfo); // Call the sendMessage function
                 });
 
 		    
                 _chatContainer.off('click', '.sendButton').on('click', '.sendButton', function (event) {
-		    console.log("_chatContainer.off'click' sendButton");
                     var _this = $('.chatInputBox');
                     if ($('.upldIndc').is(':visible')) {
                         alert('Uploading file, please wait...');
@@ -1848,7 +1788,6 @@
                     return;
                 });
                 _chatContainer.off('click', '.notRecordingMicrophone').on('click', '.notRecordingMicrophone', function (event) {
-		    console.log("_chatContainer.off'click' notRecordingMicrophone");
                     if (ttsAudioSource) {
                         ttsAudioSource.stop();
                     }
@@ -1857,14 +1796,12 @@
                     }
                 });
                 _chatContainer.off('click', '.recordingMicrophone').on('click', '.recordingMicrophone', function (event) {
-		    console.log("_chatContainer.off'click' recordingMicrophone");
                     stop();
                     setTimeout(function () {
                         setCaretEnd(document.getElementsByClassName("chatInputBox"));
                     }, 350);
                 });
                 _chatContainer.off('click', '.attachmentBtn').on('click', '.attachmentBtn', function (event) {
-		    console.log("_chatContainer.off'click' attachmentBtn");	
                     if (fileUploaderCounter == 1) {
                         alert('You can upload only one file');
                         return;
@@ -1876,7 +1813,6 @@
                     $('#captureAttachmnts').trigger('click');
                 });
                 _chatContainer.off('click', '.removeAttachment').on('click', '.removeAttachment', function (event) {
-		    console.log("_chatContainer.off'click' removeAttachment");
                     $(this).parents('.msgCmpt').remove();
                     $('.kore-chat-window').removeClass('kore-chat-attachment');
                     fileUploaderCounter = 0;
@@ -1885,7 +1821,6 @@
                     document.getElementById("captureAttachmnts").value = "";
                 });
                 _chatContainer.off('change', '#captureAttachmnts').on('change', '#captureAttachmnts', function (event) {
-		    console.log("_chatContainer.off'change' captureAttachmnts");
                     var file = $('#captureAttachmnts').prop('files')[0];
                     if (file && file.size) {
                         if (file.size > filetypes.file.limit.size) {
@@ -1896,7 +1831,6 @@
                     cnvertFiles(this, file);
                 });
                 _chatContainer.off('paste', '.chatInputBox').on('paste', '.chatInputBox', function (event) {
-		    console.log("_chatContainer.off'paste' chatInputBox");
                     event.preventDefault();
                     var _this = document.getElementsByClassName("chatInputBox");
                     var _clipboardData = event.clipboardData || (event.originalEvent && event.originalEvent.clipboardData) || window.clipboardData;
@@ -1912,12 +1846,10 @@
                     }, 100);
                 });
                 _chatContainer.off('click', '.sendChat').on('click', '.sendChat', function (event) {
-		    console.log("_chatContainer.off'click' sendChat");
                     var _footerContainer = $(me.config.container).find('.kore-chat-footer');
                     me.sendMessage(_footerContainer.find('.chatInputBox'));
                 });
                 _chatContainer.off('click', 'li a').on('click', 'li a', function (e) {
-		    console.log("_chatContainer.off'click' li a");
                     e.preventDefault();
                     var a_link = $(this).attr('href');
                     var _trgt = $(this).attr('target');
@@ -1954,7 +1886,6 @@
 
 		//hoonartek customization for country selection template for travel - search functionality
                 _chatContainer.off('input', '.searchInput').on('input', '.searchInput', function () {
-		    console.log("_chatContainer.off'input' searchInput");
                     const filter = $(this).val().toLowerCase();
                     const $optionsContainer = $(this).next('.checkboxOptions'); // Select the sibling div with checkbox options
                 
@@ -1973,7 +1904,6 @@
 		    
 		// hoonartek customization for health discount template & country selection template done-button
                 _chatContainer.off('click', '.buttonTmplContentBox li,.listTmplContentChild .buyBtn,.viewMoreList .viewMore,.listItemPath,.quickReply,.carouselImageContent,.listRightContent,.checkboxBtn,.likeDislikeDiv,.buttonQuickReply, .done-button, .doneBtn').on('click', '.buttonTmplContentBox li,.listTmplContentChild .buyBtn, .viewMoreList .viewMore,.listItemPath,.quickReply,.carouselImageContent,.listRightContent,.checkboxBtn,.likeDislikeDiv,.buttonQuickReply,.done-button, .doneBtn', function (e) {
-		    console.log("_chatContainer.off'click' buttonTmplContentBox");
                     e.preventDefault();
                     e.stopPropagation();
                     var type = $(this).attr('type');
@@ -2119,14 +2049,12 @@
                         }, 50);
                     }
                     setTimeout(function () {
-			console.log("In setTimeout 2121");
                         var _chatInput = _chatContainer.find('.kore-chat-footer .chatInputBox');
                         _chatInput.focus();
                     }, 600);
                 });
 
                 _chatContainer.off('click', '.close-btn').on('click', '.close-btn', function (event) {
-		    console.log("_chatContainer.off'click' close-btn");
                     $('.recordingMicrophone').trigger('click');
                     if (ttsAudioSource) {
                         ttsAudioSource.stop();
@@ -2146,14 +2074,12 @@
                     chatInitialize.stopSpeaking();
 		// hoonartek customization for clear history starts after cross button close button
                     setTimeout(function () {
-			console.log("In setTimeout 2148");
                         window.location.reload();
                     }, 100); // Delay of 100ms before refresh, adjust if needed
                 // hoonartek customization for clear history ends after cross button
                 });
 
                 _chatContainer.off('click', '.minimize-btn').on('click', '.minimize-btn', function (event) {
-		    console.log("_chatContainer.off'click' minimize-btn");
                     if(me.config.multiPageApp && me.config.multiPageApp.enable){
                         me.setLocalStoreItem('kr-cw-state','minimized');
                     }
@@ -2186,7 +2112,6 @@
                 });
 
                 _chatContainer.off('click', '.expand-btn').on('click', '.expand-btn', function (event) {
-		    console.log("_chatContainer.off'click' expand-btn");
                     if ($('.kore-chat-overlay').length === 0) {
                         $(me.config.container).append('<div class="kore-chat-overlay"></div>');
                     }
@@ -2230,7 +2155,6 @@
                 });
 
                 _chatContainer.off('click', '.retry').on('click', '.retry', function (event) {
-		    console.log("_chatContainer.off'click' retry");
                     var target=$(event.target);
                     _chatContainer.find(".failed-text").remove();  
                     _chatContainer.find(".retry-icon").remove();
@@ -2260,7 +2184,6 @@
                     }
                 });
                 _chatContainer.off('click', '.quickreplyLeftIcon').on('click', '.quickreplyLeftIcon', function (event) {
-		    console.log("_chatContainer.off'click' quickreplyLeftIcon");
                     var _quickReplesDivs = event.currentTarget.parentElement.getElementsByClassName('buttonTmplContentChild');
                     if (_quickReplesDivs.length) {
                         var _scrollParentDiv = event.target.parentElement.getElementsByClassName('quick_replies_btn_parent');
@@ -2287,7 +2210,6 @@
                     }
                 });
                 _chatContainer.off('click', '.quickreplyRightIcon').on('click', '.quickreplyRightIcon', function (event) {
-		    console.log("_chatContainer.off'click' quickreplyRightIcon");
                     var _quickReplesDivs = event.currentTarget.parentElement.getElementsByClassName('buttonTmplContentChild');
                     if (_quickReplesDivs.length) {
                         var _scrollParentDiv = event.target.parentElement.getElementsByClassName('quick_replies_btn_parent');
@@ -2315,7 +2237,6 @@
                     }
                 });
                 _chatContainer.off('click', '.minimized').on('click', '.minimized,.minimized-title', function (event) {
-		    console.log("_chatContainer.off'click' minimized");
                     if(me.config.multiPageApp && me.config.multiPageApp.enable){
                         me.setLocalStoreItem('kr-cw-state','open');
                     }
@@ -2344,7 +2265,6 @@
                 });
 
                 _chatContainer.off('click', '.reload-btn').on('click', '.reload-btn', function (event,data) {
-		    console.log("_chatContainer.off'click' reload-btn");
                     chatInitialize.stopSpeaking();
                     if(data && data.isReconnect){
                         me.config.botOptions.forceReconnecting=true;
@@ -2369,7 +2289,6 @@
 
                 });
                 _chatContainer.off('click', '.ttspeaker').on('click', '.ttspeaker', function (event) {
-		    console.log("_chatContainer.off'click' ttspeaker");
                     if (me.config.isTTSEnabled) {
                         if (me.isTTSOn) {
                             if (ttsAudioSource) {
@@ -2408,7 +2327,6 @@
                
                 var element = document.querySelector('.droppable');
                 function callback(files) {
-		    console.log("In function callback");
                     // Here, we simply log the Array of files to the console.
                     if (fileUploaderCounter == 1) {
                         alert('You can upload only one file');
@@ -2424,7 +2342,6 @@
             };
             
             chatWindow.prototype.getBotMetaData = function () {
-		console.log("In prototype getBotMetaData");
                 var me = this;
                 me.bot.getBotMetaData(function(res){
                     me.sendWebhookOnConnectEvent();
@@ -2433,7 +2350,6 @@
                 });
             };
             chatWindow.prototype.sendWebhookOnConnectEvent = function () {
-		console.log("In prototype sendWebhookOnConnectEvent");
                 var me = this;
                 me.sendMessageViaWebHook({
                     "type": "event",
@@ -2452,7 +2368,6 @@
             }
 
             chatWindow.prototype.bindSDKEvents = function (){
-		console.log("In prototype bindSDKEvents");
                 //hook to add custom events
                 var me=this;
                 me.bot.on("open", function (response) {
@@ -2543,15 +2458,12 @@
                 });
 
                 me.bot.on('reconnected', (response) => {
-		    console.log("In me bot on reconnected");
                     if (me.config?.syncMessages?.onReconnect?.enable && response?.reconnected) {
                         me.bot.getHistory({ forHistorySync: true, limit: me.config?.syncMessages?.onReconnect?.batchSize });
                     }
                 });
             };
             chatWindow.prototype.bindCustomEvents = function (){
-		console.log("In prototype bindCustomEvents");
-		
                 //hook to add custom events
                 var me = this;
                 var _chatContainer = me.config.chatContainer;
@@ -2559,7 +2471,6 @@
                 //e.stopImmediatePropagation(); would be useful to override
             };
             chatWindow.prototype.onBotReady = function (){
-		console.log("In prototype onBotReady");
                 //hook to add custom events
                 var me=this;
 
@@ -2585,7 +2496,6 @@
                 }
             }
             chatWindow.prototype.bindIframeEvents = function (authPopup) {
-		console.log("In prototype bindIframeEvents");
                 var me = this;
                 authPopup.on('click', '.close-popup', function () {
                     $(this).closest('.kore-auth-popup').remove();
@@ -2601,7 +2511,6 @@
             };
 
             chatWindow.prototype.render = function (chatWindowHtml) {
-		console.log("In prototype render");
                 var me = this;
                 $(me.config.container).append(chatWindowHtml);
 
@@ -2617,7 +2526,6 @@
             };
 
             chatWindow.prototype.sendMessage = function (chatInput, renderMsg,msgObject,isMessageTobeHidden) {
-		console.log("In prototype sendMessage");
                 var me = this;
                 me.stopSpeaking();
                 if (chatInput.text().trim() === "" && $('.attachment').html().trim().length == 0) {
@@ -2755,7 +2663,6 @@
             };
                  
             chatWindow.prototype.handleWebHookResponse = function (msgsData) {
-		console.log("In prototype handleWebHookResponse");
                 var SUBSEQUENT_RENDER_DELAY = 500;
                 if (msgsData && msgsData.length) {
                     msgsData.forEach(function (msgData, index) {
@@ -2767,7 +2674,6 @@
             }
 
             chatWindow.prototype.sendMessageViaWebHook= function(message,successCb,failureCB,options){
-		console.log("In prototype sendMessageViaWebHook");
                 var me=this;
                 if(me.config.botOptions.webhookConfig.webhookURL){
                     var payload = {
@@ -2823,7 +2729,6 @@
             
 
             chatWindow.prototype.closeConversationSession = function () {
-		console.log("In prototype closeConversationSession");
                 var me = this;
                 var clientMessageId = new Date().getTime();
                 var messageToBot = {};
@@ -2835,7 +2740,6 @@
             };
 
             chatWindow.prototype.renderMessage = function (msgData) {
-		console.log("In prototype renderMessage");
                 var me = this, messageHtml = '', extension = '', _extractedFileName = '';
                 var helpers=me.helpers;
                 msgData.createdOnTimemillis=new Date(msgData.createdOn).valueOf();
@@ -2844,7 +2748,6 @@
                 graphLibGlob = me.config.graphLib || "d3";
 	// hoonartek kore customization for mic
                 if(msgData.type === "currentUser"){ 
-		    console.log("In reformatUsertext called");
                     msgData.message[0].cInfo.body = reFormatUserText(msgData.message[0].cInfo.body);
                 }
         // hoonartek kore customization for mic ends
@@ -2896,7 +2799,6 @@
                         $('.typingIndicator').css('background-image', "url(" + msgData.icon + ")");
                     }, 500);
                     setTimeout(function () {
-			console.log("In setTimeOut 2897");
                         if (!waiting_for_message) {
                             if(me.typingIndicatorTimer){
                                 clearTimeout(me.typingIndicatorTimer);
@@ -3658,7 +3560,6 @@
             };                   
                                     
             chatWindow.prototype.pushTorenderMessagesQueue = function (msgItem) {
-		console.log("In prototype pushTorenderMessagesQueue");
                 var me = this;
                 if( !me.renderMessagesQueue){
                     me.renderMessagesQueue = [];
@@ -3669,7 +3570,6 @@
                 }
             }
             chatWindow.prototype.startRenderEventLoop = function () {
-		console.log("In prototype startRenderEventLoop");
                 var me = this;
                 me.msgRenderingProgress = false;
                 me.renderEventLoop=setInterval(function () {
@@ -3678,7 +3578,6 @@
                 }, 500);
             }
             chatWindow.prototype.checkForMsgQueue = function () {
-		console.log("In prototype checkForMsgQueue");
                 var me = this;
                 if (me.renderMessagesQueue.length && !me.msgRenderingProgress) {
                     var tempData = me.renderMessagesQueue.shift();
@@ -3699,13 +3598,11 @@
             };    
 
             chatWindow.prototype.formatMessages = function (msgContainer) {
-		console.log("In prototype formatMessages");
                 /*adding target to a tags */
                 $(msgContainer).find('a').attr('target', '_blank');
             };
 
             chatWindow.prototype.openPopup = function (link_url) {
-		console.log("In prototype openPopup");
                 var me = this;
                 var popupHtml = $(me.getChatTemplate("popup")).tmpl({
                     "link_url": link_url
@@ -3716,7 +3613,6 @@
             };
 
             chatWindow.prototype.openExternalLink = function (link_url) {
-		console.log("In prototype openExternalLink");
                 var me = this;
                 var a = document.createElement("a");
                 $(me.config.container).append(a);
@@ -3728,7 +3624,6 @@
             };
 
             chatWindow.prototype.getChatTemplate = function (tempType) {
-		console.log("In prototype getChatTemplate");
                 var chatFooterTemplate =
                 '<div class="footerContainer pos-relative"> \
                     {{if userAgentIE}} \
@@ -4471,7 +4366,6 @@
             };
 
             chatWindow.prototype.historyLoadingComplete = function () {
-		console.log("In prototype historyLoadingComplete");
                 var me=this;
                 setTimeout(function(me){
                     $('.chatInputBox').focus();
@@ -4483,7 +4377,6 @@
                 },0,me);
             }
             chatWindow.prototype.historySyncing = function (msgData,res,index) {
-		console.log("In prototype historySyncing");
                 var me = this;
                 try {
                     msgData.message[0].cInfo.body = JSON.parse(msgData.message[0].cInfo.body);
@@ -4524,7 +4417,6 @@
             }
 
             chatWindow.prototype.chatHistory = function (res) {
-		console.log("In prototype chatHistory");
                 var me = this;
                 if(res[2]==='historysync'){
                     //setTimeout(function () {
@@ -4597,7 +4489,6 @@
                 }
             }
             chatWindow.prototype.applyVariableValue = function(key,value,type){
-		console.log("In prototype applyVariableValue");
                 try{
                     var cssPrefix = "--sdk-chat-custom-";
                     var cssVariable = "";
@@ -4617,7 +4508,6 @@
                 
             }
             chatWindow.prototype.applySDKBranding = function (response) {
-		console.log("In prototype applySDKBranding");
                 if (response && response.activeTheme) {
                     for (var key in response) {
                     switch (key){
@@ -4700,7 +4590,6 @@
                 chatInitialize.applySDKBranding.call(chatInitialize,res);
             }
             function IsJsonString() {
-		console.log("In function IsJsonString");
                 try {
                     JSON.parse(str);
                 } catch (e) {
@@ -4709,7 +4598,6 @@
                 return true;
             }
             function insertHtmlData(_txtBox, _html) {
-		console.log("In function insertHtmlData");
                 var _input = _txtBox;
                 sel = window.getSelection();
                 if (sel.rangeCount > 0) {
@@ -4739,7 +4627,6 @@
                 }
             }
             function setCaretEnd(_this) {
-		console.log("In function setCaretEnd");
                 var sel;
                 if (_this && _this.item(0) && _this.item(0).innerText.length) {
                     var range = document.createRange();
@@ -4757,7 +4644,6 @@
                 }
             }
             function strSplit(str) {
-		console.log("In function strSplit");
                 return (str.split('.'));
             }
             /*function fetchBotDetails(botData,botInfo) {
@@ -4803,7 +4689,6 @@
                 }
             }*/
             window.onbeforeunload = function () {
-		console.log("In window.onbeforeunload");
                 if (chatInitialize && $(chatInitialize.config.chatContainer).length > 0) {
                     chatInitialize.stopSpeaking();
                     chatInitialize.destroy();
@@ -4811,7 +4696,6 @@
                 }
             }
             this.addListener = function (evtName, trgFunc) {
-		console.log("In this.addListener");
                 if (!_eventQueue) {
                     _eventQueue = {};
                 }
@@ -4825,14 +4709,12 @@
                 }
             }
             this.removeListener = function (evtName) {
-		console.log("In this.removeListener");
                 if (_eventQueue && _eventQueue[evtName]) {
                     delete _eventQueue[evtName];
                 }
             }
 
             this.callListener = function (evtName, data) {
-		console.log("In this.callListener");
                 if (_eventQueue && _eventQueue[evtName]) {
                     for (var i = 0; i < _eventQueue[evtName].length; i++) {
                         if (typeof _eventQueue[evtName][i] === "function") {
@@ -4842,7 +4724,6 @@
                 }
             }
             this.show = function (cfg) {
-		console.log("In this.show");
                 if ($('body').find('.kore-chat-window').length > 0) {
                     return false;
                 }
@@ -4858,7 +4739,6 @@
             };
             
             this.addWidgetEvents = function (cfg) {
-		console.log("In this.addWidgetEvents");
                 if (cfg) {
                     var wizSDK = cfg.widgetSDKInstace;
                     wizSDK.events.onPostback = function (data) {
@@ -4869,14 +4749,12 @@
             };
             
             this.setWidgetInstance=function(widgetSDKInstace){
-		console.log("In this.setWidgetInstance");
                 if(widgetSDKInstace){
                     chatInitialize.config.widgetSDKInstace=widgetSDKInstace;
                     this.addWidgetEvents(chatInitialize.config);
                 }
             }           
             this.destroy = function () {
-		console.log("In this.destroy");
                 if (chatInitialize && chatInitialize.destroy) {
                     _eventQueue = {};
                     chatInitialize.destroy();
@@ -4889,16 +4767,13 @@
                 window.removeEventListener('offline', updateOnlineStatus);
             };
             this.initToken = function (options) {
-		console.log("In this.initToken");
                 assertionToken = "bearer " + options.accessToken;
             };
                       
             this.hideError = function () {
-		console.log("In this.hideError");
                 $('.errorMsgBlock').removeClass('showError');
             }
             this.showError = function (response) {
-		console.log("In this.showError");
                 try {
                     response = JSON.parse(response);
                     if (response.errors && response.errors[0]) {
@@ -4911,7 +4786,6 @@
                 }
             }
             this.botDetails = function (response, botInfo) {
-		console.log("In this.botDetails");
                 if(window.KoreAgentDesktop){
                     if (response && response.userInfo) {
                         KoreAgentDesktop(response.userInfo.userId, response);
@@ -4925,7 +4799,6 @@
                 }, 50);*/
             }
             this.chatHistory = function (res) {
-		console.log("In this.chatHistory");
                 chatInitialize.chatHistory.call(chatInitialize,res);
             }
             // chatWindow.prototype.chatHistory = function (res) {
@@ -5053,7 +4926,6 @@
             //     }
             // }
             this.closeConversationSession = function () {
-		console.log("In this.closeConversationSession");
                if(chatInitialize){
                     chatInitialize.closeConversationSession();
                } 
@@ -5064,7 +4936,6 @@
             var recognition = null;
             var prevStr = "";
             setTimeout(function(){
-		console.log("In setTimeout 5065 ");
                 if(chatInitialize && chatInitialize.config && chatInitialize.config.stt && chatInitialize.config.stt.vendor === 'google') {
                     if(window.initGapi){
                         initGapi();
@@ -5075,7 +4946,6 @@
                 }
             },2000);
             function isChrome() {
-		console.log("In function isChrome");
                 var isChromium = window.chrome,
                     winNav = window.navigator,
                     vendorName = winNav.vendor,
@@ -5098,10 +4968,8 @@
                 }
             }
             chatWindow.prototype.unfreezeUIOnHistoryLoadingFail=function () {
-		console.log("In prototype unfreezeUIOnHistoryLoadingFail");
                 var me=this;
                 setTimeout(function (me) {
-		    console.log("In setTimeout 5102");
                     if (me.loadHistory) {
                         $('.chatInputBox').focus();
                         $('.disableFooter').removeClass('disableFooter');
@@ -5110,17 +4978,12 @@
                 }, 20000,me);
             }
             if ('webkitSpeechRecognition' in window && isChrome()) {
-		console.log("In webkitSpeechRecognition If condition");
-                // recognition = new window.webkitSpeechRecognition;
-		//pallavi
-		recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
-		// pallavi
+                recognition = new window.webkitSpeechRecognition;
                 final_transcript = '';
                 recognition.continuous = true;
                 recognition.interimResults = true;
 
                 recognition.onstart = function () {
-		    console.log("In recognition.onstart");
                     prevStr = "";
                     recognizing = true;
                     $('.recordingMicrophone').css('display', 'block');
@@ -5128,7 +4991,6 @@
                 };
 
                 recognition.onerror = function (event) {
-		    console.log("In recognition.onerror");
                     console.log(event.error);
                     $('.recordingMicrophone').trigger('click');
                     $('.recordingMicrophone').css('display', 'none');
@@ -5136,117 +4998,64 @@
                 };
 
                 recognition.onend = function () {
-		    console.log("In recognition.onend");
                     recognizing = false;
                     $('.recordingMicrophone').trigger('click');
                     $('.recordingMicrophone').css('display', 'none');
                     $('.notRecordingMicrophone').css('display', 'block');
                 };
 
+                recognition.onresult = function (event) {
+                    final_transcript = '';
+                    var interim_transcript = '';
+                    for (var i = event.resultIndex; i < event.results.length; ++i) {
+                        if (event.results[i].isFinal) {
+                            final_transcript += event.results[i][0].transcript;
+                        } else {
+                            interim_transcript += event.results[i][0].transcript;
+                        }
+                    }
+                    final_transcript = capitalize(final_transcript);
+                    final_transcript = linebreak(final_transcript);
+                    interim_transcript = linebreak(interim_transcript);
+                    if (final_transcript !== "") {
+                        prevStr += final_transcript;
+                    }
+                    //console.log('Interm: ',interim_transcript);
+                    //console.log('final: ',final_transcript);
+			
+	// hoonartek Kore customization for mic on off - Navya
+                    if (recognizing && sessionStorage.getItem("mic")== 'true') {
+                        $('.chatInputBox').html(prevStr + "" + interim_transcript);
+                        $('.sendButton').removeClass('disabled');
+                        micEnable();
+                    }
+                // Hoonartek kore customization starts
+                    if (final_transcript !== "") {
+                        var me = window.chatContainerConfig;
+                        me.sendMessage($('.chatInputBox'));
+                        final_transcript = "";  // hoonartek Kore customization for mic on off - Navya
+                        prevStr ="";
+                        // recognition.stop()  //for turn off mic after send 
 
-	    //pallavi
-             recognition.onresult = function (event) {
-		    console.log("In recognition.onresult");
-		
-		    final_transcript = '';
-		    var interim_transcript = '';
-		    var speechEndTimer = null; // Timer to handle speech end
-		    var SPEECH_END_DELAY = 1000; // 1-second delay for speech end detection
-		
-		    for (var i = event.resultIndex; i < event.results.length; ++i) {
-		        if (event.results[i].isFinal) {
-		            final_transcript += event.results[i][0].transcript;
-		        } else {
-		            interim_transcript += event.results[i][0].transcript;
-		        }
-		    }
-		
-		    final_transcript = capitalize(final_transcript);
-		    final_transcript = linebreak(final_transcript);
-		    interim_transcript = linebreak(interim_transcript);
-		
-		    if (final_transcript !== "") {
-		        prevStr += final_transcript;
-		    }
-		
-		    console.log('Interim: ', interim_transcript);
-		    console.log('Final: ', final_transcript);
-		
-		    // Detect if the browser is mobile
-		    var me = window.chatContainerConfig || {}; // Default to empty object
-		    var mobileBrowserOpened = false;
-		
-		    if (me.isMobile && typeof me.isMobile === "function") {
-		        console.log("Detecting mobile browser...");
-		        mobileBrowserOpened = me.isMobile();
-		    }
-		
-		    // Update input box with interim results
-		    if (recognizing && sessionStorage.getItem("mic") == 'true') {
-		        console.log("Updating input box with interim results...");
-		
-		        $('.chatInputBox').html(prevStr + interim_transcript);
-		        $('.sendButton').removeClass('disabled');
-		        micEnable();
-		    }
-		
-		    // Mobile: Send message only after user stops speaking
-		    if (mobileBrowserOpened) {
-		        if (speechEndTimer) {
-		            clearTimeout(speechEndTimer); // Reset the timer
-		        }
-		
-		        // Set a timer to send the message after detecting speech has ended
-		        speechEndTimer = setTimeout(function () {
-		            if (final_transcript !== "") {
-		                console.log("Speech ended on mobile. Sending final transcript...");
-		
-		                $('.chatInputBox').html(prevStr); // Update with final text
-		                me.sendMessage($('.chatInputBox'));
-		
-		                // Reset variables
-		                final_transcript = "";
-		                prevStr = "";
-		
-		                // Stop recognition
-		                recognition.stop();
-		            }
-		        }, SPEECH_END_DELAY);
-		    }
-		
-		    // Desktop: Send final transcript immediately
-		    if (!mobileBrowserOpened && final_transcript !== "") {
-		        console.log("Final transcript detected on desktop. Sending now...");
-		
-		        $('.chatInputBox').html(prevStr);
-		        me.sendMessage($('.chatInputBox'));
-		
-		        // Reset variables
-		        final_transcript = "";
-		        prevStr = "";
-		
-		        // Stop recognition
-		        recognition.stop();
-		    }
-		};
-		
-		// Helper functions
-		function capitalize(s) {
-		    return s.replace(s.substr(0, 1), function (m) {
-		        return m.toUpperCase();
-		    });
-		}
-		
-		var two_line = /\n\n/g;
-		var one_line = /\n/g;
-		
-		function linebreak(s) {
-		    return s.replace(two_line, "<p></p>").replace(one_line, "<br>");
-		}
+                    }
+                // Hoonartek customization ends
+                    setTimeout(function () {
+                        setCaretEnd(document.getElementsByClassName("chatInputBox"));
+                        document.getElementsByClassName('chatInputBox')[0].scrollTop = document.getElementsByClassName('chatInputBox')[0].scrollHeight;
+                    }, 350);
+                };
+            }
 
-	    //pallavi
+            var two_line = /\n\n/g;
+            var one_line = /\n/g;
+            function linebreak(s) {
+                return s.replace(two_line, '<p></p>').replace(one_line, '<br>');
+            }
+
+            function capitalize(s) {
+                return s.replace(s.substr(0, 1), function (m) { return m.toUpperCase(); });
+            }
             function startGoogleWebKitRecognization() {
-		console.log("In function startGoogleWebKitRecognization");
                 if (recognizing) {
                     recognition.stop();
                     return;
@@ -5255,13 +5064,7 @@
                 recognition.lang = chatInitialize.config.stt.webapi.recognitionLanguage;
                 recognition.start();
             }
-		//pallavi
-	    function isAndroid() {
-		    return /Android/i.test(navigator.userAgent);
-		}
-		//pallavi
             function startGoogleSpeech() {
-		console.log("In function startGoogleSpeech");
                 if (rec) {
                     rec.record();
                     $('.recordingMicrophone').css('display', 'block');
@@ -5282,8 +5085,7 @@
                 }
             }
 
-            function getSIDToken() {
-		console.log("In function getSIDToken");
+            function getSIDToken() {      
                 if(chatInitialize.config.stt.vendor === 'azure'){
                     if (recognizer != null) {
                         RecognizerStop(SDK, recognizer);
@@ -5299,7 +5101,6 @@
                 }
             }
             function micEnable() {
-		console.log("In function micEnable");
                 if (isRecordingStarted) {
                     return;
                 }
@@ -5321,10 +5122,7 @@
                 }
             }
 
-
-
             function afterMicEnable() {
-		console.log("In function afterMicEnable");
                 if (navigator.getUserMedia) {
                     if (!rec) {
                         isRecordingStarted = false;
@@ -5345,7 +5143,6 @@
             }
 
             function success(e) {
-		console.log("In function success");
                 isListening = true;
                 mediaStream = e;
                 if (!context) {
@@ -5357,12 +5154,10 @@
                 mediaStreamSource.connect(window.userSpeechAnalyser);
                 console.log('Mediastream created');
                 if (_connection) {
-		    console.log('In _connection if condition');
                     _connection.close();
                     _connection = null;
                 }
                 if (rec) {
-		    console.log('In rec if condition');
                     rec.stop();
                     rec.clear();
                     //rec.destroy();
@@ -5378,13 +5173,11 @@
                     startGoogleSpeech();
                 }
                 setTimeout(function () {
-		    console.log("setTimeout 5324");
                     setCaretEnd(document.getElementsByClassName("chatInputBox"));
                 }, 600);
             }
 
             function cancel() {
-		console.log("In function cancel");
                 // Stop the regular sending of audio (if present) and disconnect microphone
                 clearInterval(intervalKey);
                 isRecordingStarted = false;
@@ -5410,7 +5203,6 @@
             }
 
             function socketSend(item) {
-		console.log("In function socketSend");
                 if (_connection) {
                     var state = _connection.readyState;
                     if (state === 1) {
@@ -5439,7 +5231,6 @@
 
 
             function createSocket() {
-		console.log("In function createSocket");
                 window.ENABLE_MICROPHONE = true;
                 window.SPEECH_SERVER_SOCKET_URL = sidToken;
                 var serv_url = window.SPEECH_SERVER_SOCKET_URL;
@@ -5449,7 +5240,6 @@
                 var _connection = new WebSocket(url);
                 // User is connected to server
                 _connection.onopen = function (e) {
-		    console.log("In _connection.onopen");
                     console.log('User connected');
                     _user_connection = true;
                     rec.record();
@@ -5466,7 +5256,6 @@
                 };
                 // On receving message from server
                 _connection.onmessage = function (msg) {
-		    console.log("In _connection.onmessage");
                     var data = msg.data;
                     var interim_transcript = '';
                     //console.log(data);
@@ -5508,7 +5297,6 @@
                 };
                 // If server is closed
                 _connection.onclose = function (e) {
-		    console.log("In _connection.onclose");
                     if ($('.chatInputBox').text() !== '' && chatInitialize.config.autoEnableSpeechAndTTS) {
                         var me = window.chatContainerConfig;
                         me.sendMessage($('.chatInputBox'));
@@ -5520,14 +5308,12 @@
                 };
                 // If there is an error while sending or receving data
                 _connection.onerror = function (e) {
-		    onsole.log("In _connection.onerror");
                     console.log("Error : ", e);
                 };
                 return _connection;
             }
 
             function stop() {
-		console.log("In function stop");
                 if ($('.chatInputBox').text() !== '' && chatInitialize.config.autoEnableSpeechAndTTS) {
                     var me = window.chatContainerConfig;
                     me.sendMessage($('.chatInputBox'));
@@ -5536,12 +5322,10 @@
                 $('.recordingMicrophone').css('display', 'none');
                 $('.notRecordingMicrophone').css('display', 'block');
                 if (rec) {
-		    console.log("In rec if condition");
                     rec.stop();
                     isListening = false;
                     console.log('stopped recording..');
                     setTimeout(function () {
-			    console.log("In setTimeout 5487");
                         if (_connection) {
                             _connection.close();
                             _connection = null;
@@ -5549,7 +5333,6 @@
                     }, 1000); // waiting to send and receive last message
 
                     rec.export16kMono(function (blob) {
-			console.log("In rec.export16kMono");
                         socketSend(blob);
                         rec.clear();
                         if (_connection) {
@@ -5562,14 +5345,12 @@
                     }, 'audio/x-raw');
                 }
                 if (recognizing) {
-			console.log("In recognizing if condition");
                     recognition.stop();
                     recognizing = false;
                 }
             };
 
             $(window).on('beforeunload', function () {
-		console.log("In window on beforeunload");
                 cancel();
             });
 
@@ -5577,14 +5358,11 @@
 
             /*************************************    TTS code start here         **************************************/
 
-	         chatWindow.prototype.speakWithWebAPI= function(_txtToSpeak) {
-		 console.log("In prototype chatWindow.prototype.speakWithWebAPI");
+            chatWindow.prototype.speakWithWebAPI= function(_txtToSpeak) {
                 if(!_txtToSpeak){
-		    console.log("In _txtToSpeak if condition");
                     return false;
                 }
                 if('speechSynthesis' in window){
-		    console.log("In speechSynthesis' in window if condition ");
                     // window.speechSynthesis.cancel();
                     // Create a new instance of SpeechSynthesisUtterance.
                     // var msg = new SpeechSynthesisUtterance();
@@ -5606,14 +5384,10 @@
                }
             }
             chatWindow.prototype.stopSpeaking= function() {
-		console.log("In prototype chatWindow.prototype.stopSpeaking");
                 var me = this;
                 if (me.config.isTTSEnabled) {
-		    console.log("In me.config.isTTSEnabled If condition");
                     if(me.config.ttsInterface && me.config.ttsInterface==="webapi"){
-			    console.log("In me.config.ttsInterface && me.config.ttsInterface===webapi If condition");
                         if('speechSynthesis' in window){
-				console.log("In 'speechSynthesis' in window If condition");
                             audioMsgs = [];
                             audioPlaying = false;
                             window.speechSynthesis.cancel();
@@ -5623,52 +5397,42 @@
             }
 
             function playMessageSequence() {
-		    console.log("In function playMessageSequence");
 	//hoonartek kore customization for mic on off (stop the recognization while message playing through speaker)
                 if(recognizing && audioPlaying){    //hoonartek kore customization for mic on off
-			console.log("In recognizing && audioPlaying if condition");
                     recognition.stop();
                 }
         //hoonartek kore customization for mic on off
                 if (!speechSyn) {
-			console.log("In !speechSyn if condition");
                     speechSyn = new SpeechSynthesisUtterance();
                 }
         
                 if (audioMsgs.length > 0 && !audioPlaying) {
-			console.log("In audioMsgs.length > 0 && !audioPlaying if condition");
                     audioPlaying = true;
                     speechSyn.text = audioMsgs.shift();
 		//hoonartek kore customization for mic on off starts1 for checkbox/templates mic on off
                     if(speechSyn.text == 'Please select the value manually' || speechSyn.text == 'Please select the options manually'|| speechSyn.text == 'Please fill out the form manually'){
-			   console.log("In speechSyn.text == 'Please select the value manually' || if condition"); 
                         conMicOff = true;
                     }
                     else{
-			    console.log("In speechSyn.text == 'Please select the value manually' || else condition");
                         conMicOff = false;
                     }
                 //hoonartek kore customization for mic on off ends1
                     window.speechSynthesis.speak(speechSyn);
-			console.log("In window.speechSynthesis.speak(speechSyn)");
                     speechSyn.onend = function () {
                         audioPlaying = false;
                         playMessageSequence();
                     }    
                 }//hoonartek kore customization for mic on off
                 if(recognizing && audioPlaying){    //hoonartek kore customization for mic on off
-			console.log("In recognizing && audioPlaying if condition");
                     recognition.stop();
                 }
                 else if(sessionStorage.getItem("mic")== 'true' && !recognizing && !audioPlaying && !conMicOff){   //hoonartek kore customization for mic on off
-			console.log("In recognizing && audioPlaying else condition");
                     recognition.start();  
                 }
         //hoonartek kore customization for mic on off
             }
 
             function createSocketForTTS() {
-		    console.log("In function createSocketForTTS(");
 
                 if(!ttsServerUrl){
                     console.warn("Please provide tts socket url");
@@ -5682,18 +5446,14 @@
                 _ttsConnection.binaryType = 'arraybuffer';
                 // User is connected to server
                 _ttsConnection.onopen = function (e) {
-			console.log("In _ttsConnection.onopen");
                     socketSendTTSMessage(_txtToSpeak);
                 };
                 // On receving message from server
                 _ttsConnection.onmessage = function (msg) {
-			console.log("In _ttsConnection.onmessage");
                     _txtToSpeak = "";
                     if (typeof msg.data === 'string') {
-			    console.log("In typeof msg.data === 'string' if condition");
                         // do nothing
                     } else {
-			console.log("In typeof msg.data === 'string' else condition");
                         var _data = msg.data
                         if (chatInitialize.isTTSOn) {
                             playsound(_data);
@@ -5702,32 +5462,25 @@
                 };
                 // If server is closed
                 _ttsConnection.onclose = function (e) {
-			console.log("In _ttsConnection.onclose");
                     //tts socket closed
                 };
                 // If there is an error while sending or receving data
                 _ttsConnection.onerror = function (e) {
-			console.log("In _ttsConnection.onerror");
                     console.log("Error : ", e);
                 };
                 return _ttsConnection;
             }
 
             function cancelTTSConnection() {
-		console.log("In cancelTTSConnection");
                 if (_ttsConnection) {
-		    console.log("In _ttsConnection if condition");
                     _ttsConnection.close();
                     _ttsConnection = null;
                 }
             }
             function socketSendTTSMessage(item) {
-		    console.log("In function socketSendTTSMessage");		
                 if (_ttsConnection) {
-		    console.log("In _ttsConnection if condition");
                     var state = _ttsConnection.readyState;
                     if (state === 1) {
-			console.log("In _ttsConnection if condition state === 1");
                         var auth = (bearerToken) ? bearerToken : assertionToken;
                         var _message = {
                             message: item,
@@ -5744,13 +5497,9 @@
                 }
             }
             function initTTSAudioContext() {
-		console.log("In initTTSAudioContext if condition");
                 if (!_ttsContext) {
-		    console.log("In !_ttsContext if condition");
                     if (!window.AudioContext) {
-			console.log("In !window.AudioContext if condition");
                         if (!window.webkitAudioContext) {
-			    console.log("In !window.webkitAudioContext if condition");
                             console.error("Your browser does not support any AudioContext and cannot play back this audio.");
                             return;
                         }
@@ -5761,7 +5510,6 @@
             }
             initTTSAudioContext();
             function playsound(raw) {
-		console.log("In function playsound(raw)");
                 _ttsContext.decodeAudioData(raw, function (buffer) {
                     if (!buffer) {
                         console.error("failed to decode:", "buffer null");
@@ -5792,7 +5540,6 @@
             /*******************************    Function for Attachment ***********************************************/
 
             chatWindow.prototype.makeDroppable=function (element, callback) {
-		console.log("In prototype makeDroppable");
                 var input = document.createElement('input');
                 input.setAttribute('type', 'file');
                 input.setAttribute('multiple', false);
@@ -5826,7 +5573,6 @@
                 });*/
 
                 function triggerCallback(e) {
-		    console.log("In function triggerCallback");
                     var files;
                     if (e.dataTransfer) {
                         files = e.dataTransfer.files;
@@ -5837,7 +5583,6 @@
                 }
             }
             function cnvertFiles(_this, _file, customFileName) {
-		console.log("In function cnvertFiles");
                 var _scope = _this, recState = {};
                 if (_file && _file.size) {
                     if (_file.size > filetypes.file.limit.size) {
@@ -5925,7 +5670,6 @@
                 }
             };
             function getUID(pattern) {
-		console.log("In function getUID(pattern)");
                 var _pattern = pattern || 'xxxxyx';
                 _pattern = _pattern.replace(/[xy]/g, function (c) {
                     var r = Math.random() * 16 | 0,
@@ -5935,7 +5679,6 @@
                 return _pattern;
             };
             function getDataURL(src) {
-		console.log("In function getDataURL(src)");
                 var thecanvas = document.createElement("canvas");
                 thecanvas.height = 180;
                 thecanvas.width = 320;
@@ -5946,7 +5689,6 @@
                 return dataURL;
             };
             function acceptAndUploadFile(_this, file, recState) {
-		console.log("In function acceptAndUploadFile");
                 var _scope = _this, ele;
                 var uc = getfileuploadConf(recState);
                 uc.chunkUpload = file.size > appConsts.CHUNK_SIZE;
@@ -5972,7 +5714,6 @@
                 }
             };
             function getFileToken(_obj, _file, recState) {
-		console.log("In function getFileToken");
                 var me=chatInitialize;
                 var auth = (bearerToken) ? bearerToken : assertionToken;
                 var url=koreAPIUrl + "1.1/attachment/file/token";
@@ -6005,7 +5746,6 @@
                 });
             }
             function getfileuploadConf(_recState) {
-		console.log("In function getfileuploadConf");
                 var me=chatInitialize;
                 appConsts.UPLOAD = {
                     "FILE_ENDPOINT": koreAPIUrl + "1.1/attachment/file",
@@ -6039,7 +5779,6 @@
                 return _uploadConfg;
             };
             function notifyFlie(_this, _recState, _tofileId) {
-		console.log("In function notifyFlie");
                 var _this = _this;
                 var _data = {};
                 _data.meta = {
@@ -6060,7 +5799,6 @@
                 onComponentReady(_this, _data);
             };
             function initiateRcorder(_recState, ele) {
-		console.log("In function initiateRcorder");
                 var _scope = this;
                 ele = ele || _scope.ele;
                 ele.on('success.ke.uploader', function (e) {
@@ -6069,7 +5807,6 @@
                 ele.on('error.ke.uploader', onUploadError);
             };
             function onFileToUploaded(_this, evt, _recState) {
-		console.log("In function onFileToUploaded");
                 var _this = _this;
                 var _data = evt.params;
                 if (!_data || !_data.fileId) {
@@ -6082,7 +5819,6 @@
                 }
             };
             function onUploadError(_this, evt, _recState) {
-		console.log("In function onUploadError");
                 var _scope = _this;
                 _recfileLisnr.onError({
                     code: 'UPLOAD_FAILED'
@@ -6090,7 +5826,6 @@
                 _scope.removeCmpt(_recState);
             };
             function onError() {
-		console.log("In function onError");
                 alert("Failed to upload content. Try again");
                 attachmentInfo = {};
                 $('.attachment').html('');
@@ -6098,7 +5833,6 @@
                 fileUploaderCounter = 0;
             };
             function onComponentReady(_this, data) {
-		console.log("In function onComponentReady");
                 var _this = _this,
                     _src,
                     _imgCntr, _img, base64Matcher, http,
@@ -6161,7 +5895,6 @@
                 $('.sendButton').removeClass('disabled');
             };
             function acceptFileRecording(_this, _recState, ele) {
-		console.log("In function acceptFileRecording");
                 var _scope = _this;
                 var _uc = getfileuploadConf(_recState),
                     _imageCntn = _recState.resulttype;
@@ -6181,7 +5914,6 @@
                 ele.uploader(_uc);
             };
             function notifyfileCmpntRdy(_this, _recState, _tofileId) {
-		console.log("In function notifyfileCmpntRdy");
                 var _this = _this;
                 var _data = {};
                 _data.meta = {
@@ -6199,16 +5931,13 @@
             };
             /***************************************************** ke.uploader file code **********************************************/
             function MultipartData() {
-		console.log("In function MultipartData");
                 this.boundary = "--------MultipartData" + Math.random();
                 this._fields = [];
             }
             MultipartData.prototype.append = function (key, value) {
-		console.log("In function MultipartData.prototype.append");
                 this._fields.push([key, value]);
             };
             MultipartData.prototype.toString = function () {
-		console.log("In function MultipartData.prototype.toString");
                 var boundary = this.boundary;
                 var body = "";
                 this._fields.forEach(function (field) {
@@ -6236,7 +5965,6 @@
                 return body;
             };
             function Uploader(element, options) {
-		console.log("In function Uploader");
                 this.options = options;
                 this.$element = element;
                 if (!this.options.chunkUpload) {
@@ -6252,12 +5980,10 @@
                 success: $.Event('success.ke.uploader')
             };
             function getConnection(_this) {
-		console.log("In function getConnection");
                 return new kfrm.net.HttpRequest();
             };
 
             function loadListener(_this, evt) {
-		    console.log("In function loadListener");
                 if ($('.upldIndc').is(':visible')) {
                     _this.events.success.params = $.parseJSON(evt.target.response);
                     attachmentInfo.fileId = _this.events.success.params.fileId;
@@ -6271,23 +5997,19 @@
             };
 
             function errorListener(_this, evt) {
-		console.log("In function errorListener");
                 _this.events.error.params = evt;
                 _this.$element.trigger(_this.events.error);
             };
 
             function progressListener(_this, evt) {
-		   console.log("In function progressListener"); 
             };
 
             function setOptions(_this, opts) {
-		console.log("In function setOptions");
                 _this.options = opts;
                 return _this;
             };
 
             function commitFile(_this) {
-		console.log("In function commitFile");
                 var _scope = _this,
                     _conc = getConnection(_this),
                     _mdat = new MultipartData();
@@ -6323,7 +6045,6 @@
             };
 
             function uploadChunk(_this) {
-		console.log("In function uploadChunk");
                 var _scope = _this,
                     _conc = getConnection(_this),
                     _mdat = new MultipartData();
@@ -6363,7 +6084,6 @@
             };
 
             function initUploadChunk(_this) {
-		console.log("In function initUploadChunk");
                 var _scope = _this;
                 var file = _scope.options.file;
                 var start = _scope.options.chunkSize * (_scope.currChunk);
@@ -6387,7 +6107,6 @@
             };
 
             function startChunksUpload(_this) {
-		console.log("In function startChunksUpload");
                 var _scope = _this,
                     _conc = getConnection(_this);
                 _conc.addEventListener('error', function (evt) {
@@ -6416,7 +6135,6 @@
                 _conc.send();
             };
             function startUpload(_this) {
-		console.log("In function startUpload");
                 var _scope = _this;
                 _conc = getConnection(_this),
                     _mdat = new MultipartData();
@@ -6451,7 +6169,6 @@
             };
 
             function zoomChart() {
-		console.log("In function zoomChart");
                 var modal = document.getElementById('myPreviewModal');
                 $(".largePreviewContent").empty();
                 $(".largePreviewContent").addClass("addheight");
@@ -6469,7 +6186,6 @@
 
             // listen to chart click
             function handleChartOnClick() {
-		console.log("In function handleChartOnClick");
                 $('.piechartDiv,.barchartDiv, .linechartDiv').click(function (e) {
                     var firstEleId = e.currentTarget.firstElementChild.getAttribute("id");
                     //get chart data
@@ -6620,7 +6336,6 @@
             ********************************************** kore.ai framework file ******************************************************************************
             ************************************************************************************************************************************************/
             +function () {
-		console.log("In +function ()");
                 function getHTTPConnecton() {
                     var xhr = false;
                     xhr = new XMLHttpRequest();
@@ -6633,7 +6348,6 @@
                 }
 
                 function HttpRequest() {
-		    console.log("In function HttpRequest");
                     var xhr = getHTTPConnecton();
                     if (!xhr) {
                         throw "Unsupported HTTP Connection";
