@@ -5111,7 +5111,10 @@
             }
             if ('webkitSpeechRecognition' in window && isChrome()) {
 		console.log("In webkitSpeechRecognition If condition");
-                recognition = new window.webkitSpeechRecognition;
+                // recognition = new window.webkitSpeechRecognition;
+		//pallavi
+		recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+		// pallavi
                 final_transcript = '';
                 recognition.continuous = true;
                 recognition.interimResults = true;
