@@ -5170,12 +5170,12 @@
 		//pallavi
 			if (recognizing && sessionStorage.getItem("mic") == 'true') {
 		            console.log("In recognizing && sessionStorage If condition");
-		            if (!isAndroid()) {
-		                // For Windows: Show both final and interim transcript
-		                $('.chatInputBox').html(prevStr + "" + interim_transcript);
+		            if (isAndroid()) {
+		                // For Android: Only display the final transcript once the user is done speaking
+		                $('.chatInputBox').html(prevStr);  // Show the final text on Android
 		            } else {
-		                // For Android: Only show the final transcript
-		                $('.chatInputBox').html(prevStr);
+		                // For Windows or other platforms: Display both final and interim transcript
+		                $('.chatInputBox').html(prevStr + "" + interim_transcript);
 		            }
 		            $('.sendButton').removeClass('disabled');
 		            micEnable();
