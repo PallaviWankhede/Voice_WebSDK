@@ -242,16 +242,16 @@
 
 	        //pallavi
 	// hoonartek kore Customization for mic starts
-	        window.micAutoOnOff = false;
-	        window.enableMicAutoOnOff = function enableMicAutoOnOff(){
-	            window.micAutoOnOff = !window.micAutoOnOff;
-	            if (window.micAutoOnOff){
-	                document.getElementById("mic-auto-btn").style.backgroundColor = "lightgreen";
-	                document.getElementById('notRecordingMicBtn').click();
-	            }else{
-	                document.getElementById("mic-auto-btn").style.backgroundColor = "gray";
-	            }
-	        }
+	        // window.micAutoOnOff = false;
+	        // window.enableMicAutoOnOff = function enableMicAutoOnOff(){
+	        //     window.micAutoOnOff = !window.micAutoOnOff;
+	        //     if (window.micAutoOnOff){
+	        //         document.getElementById("mic-auto-btn").style.backgroundColor = "lightgreen";
+	        //         document.getElementById('notRecordingMicBtn').click();
+	        //     }else{
+	        //         document.getElementById("mic-auto-btn").style.backgroundColor = "gray";
+	        //     }
+	        // }
 	    	
 	// hoonartek kore Customization for mic
         var koreJquery;
