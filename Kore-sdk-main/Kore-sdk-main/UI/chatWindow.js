@@ -5160,15 +5160,55 @@
                     //console.log('Interm: ',interim_transcript);
                     //console.log('final: ',final_transcript);
 			
+		    //pallavi
+			var mobileBrowserOpened = me.isMobile();			
+			    if (recognizing && sessionStorage.getItem("mic") == 'true') {
+			        console.log("In recognizing && sessionStorage If condition");
+			
+			        // Show final transcript only for mobile (Android)
+			        if (mobileBrowserOpened) {
+			            // Delay sending the message after the user stops speaking
+			            clearTimeout(mobileBrowserOpened.timer);  // Clear previous timer if any
+			            mobileBrowserOpened.timer = setTimeout(function () {
+			                // Send the message after a small delay (for silence detection)
+			                $('.chatInputBox').html(prevStr);
+			                $('.sendButton').removeClass('disabled');
+			                micEnable();
+			                var me = window.chatContainerConfig;
+			                me.sendMessage($('.chatInputBox'));
+			
+			                // Reset after sending the message
+			                prevStr = "";
+			                final_transcript = "";
+			                recognition.stop();  // Stop recognition after sending
+			            }, 500);  // Wait for 500ms after the last interim result before sending
+			        } else {
+			            // For desktop, show both interim and final results
+			            $('.chatInputBox').html(prevStr + "" + interim_transcript);
+			        }
+			    }
+			
+			    // For mobile, ensure the final transcript is only sent after the user stops speaking
+			    if (!mobileBrowserOpened && final_transcript !== "") {
+			        console.log("In final_transcript If condition for desktop");
+			
+			        var me = window.chatContainerConfig;
+			        me.sendMessage($('.chatInputBox'));
+			        
+			        // Reset final_transcript after sending
+			        final_transcript = ""; 
+			        prevStr = "";
+			
+			        // Stop recognition after sending
+			        recognition.stop();  
+			    }
 	// hoonartek Kore customization for mic on off - Navya
-                    if (recognizing && sessionStorage.getItem("mic")== 'true') {
-			console.log("In recognizing && sessionStorage If condition");
-                        $('.chatInputBox').html(prevStr + "" + interim_transcript);
-                        $('.sendButton').removeClass('disabled');
-                        micEnable();
-                    }
-                    
-		//pallavi
+   //                  if (recognizing && sessionStorage.getItem("mic")== 'true') {
+			// console.log("In recognizing && sessionStorage If condition");
+   //                      $('.chatInputBox').html(prevStr + "" + interim_transcript);
+   //                      $('.sendButton').removeClass('disabled');
+   //                      micEnable();
+   //                  }
 		   
 		//pallavi
                 // Hoonartek kore customization starts
@@ -5188,7 +5228,7 @@
                         document.getElementsByClassName('chatInputBox')[0].scrollTop = document.getElementsByClassName('chatInputBox')[0].scrollHeight;
                     }, 350);
                 };
-            };
+            }
 
             var two_line = /\n\n/g;
             var one_line = /\n/g;
