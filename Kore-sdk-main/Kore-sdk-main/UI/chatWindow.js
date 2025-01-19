@@ -5045,7 +5045,7 @@
 			    final_transcript = '';
 			    var interim_transcript = '';
 			    var speechEndTimer = null; // Timer to handle speech-end delay
-			    var SPEECH_END_DELAY = 2000; // 1.5-second delay for detecting speech end
+			    var SPEECH_END_DELAY = 4000; // 1.5-second delay for detecting speech end
 			    var inputSent = false; // Flag to track if the input is already sent
 			    var me = window.chatContainerConfig || {};  
 			    for (var i = event.resultIndex; i < event.results.length; ++i) {
