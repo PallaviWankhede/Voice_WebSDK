@@ -5041,6 +5041,7 @@
 
 		    recognition.onresult = function (event) {
 			    console.log("In recognition onresult");
+			
 			    final_transcript = '';
 			    var interim_transcript = '';
 			    var speechEndTimer = null; // Timer to handle speech-end delay
@@ -5055,48 +5056,27 @@
 			        }
 			    }
 			
-			    final_transcript = capitalize(final_transcript);
-			    final_transcript = linebreak(final_transcript);
-			    interim_transcript = linebreak(interim_transcript);
-			
-			    if (final_transcript !== "") {
-			        prevStr += final_transcript;
-			    }
+			    final_transcript = capitalize(final_transcript.trim());
+			    interim_transcript = interim_transcript.trim(); // Avoid trailing spaces
 			
 			    console.log('Interim: ', interim_transcript);
 			    console.log('Final: ', final_transcript);
 			
-			    // Detect if the browser is mobile
-			    var me = window.chatContainerConfig || {}; // Default to empty object
-			    var mobileBrowserOpened = false;
-			    if (me.isMobile && typeof me.isMobile === "function") {
-			        console.log("Detecting mobile browser...");
-			        mobileBrowserOpened = me.isMobile();
-			    }
+			    // Detect if the browser is Android Chrome
+			    var isAndroidChrome = /android/i.test(navigator.userAgent) && /chrome/i.test(navigator.userAgent);
 			
-			    // Update input box with interim results (customized for mobile and desktop)
+			    // Update input box with interim results (common for all platforms except Android Chrome)
 			    if (recognizing && sessionStorage.getItem("mic") == 'true') {
-			        if (mobileBrowserOpened) {
-			            // Handle interim results specifically for mobile
-			            console.log("Updating input box with interim results on mobile...");
-			            // Update only if interim results exist and speechEndTimer hasn't finalized the result
-			            if (interim_transcript) {
-			                $('.chatInputBox').html(prevStr + interim_transcript);
-			            }
-			        } else {
-			            // Handle interim results specifically for desktop
-			            console.log("Updating input box with interim results on desktop...");
-			            // Desktop can show interim results immediately
-			            $('.chatInputBox').html(prevStr + interim_transcript);
+			        if (!isAndroidChrome) {
+			            console.log("Updating input box with interim results on non-Android...");
+			            $('.chatInputBox').html(prevStr + interim_transcript); // Show only interim results
+			            $('.sendButton').removeClass('disabled');
+			            micEnable();
 			        }
-			
-			        // Enable send button and mic indicator for both cases
-			        $('.sendButton').removeClass('disabled');
-			        micEnable();
 			    }
 			
-			    // Handle mobile browser behavior
-			    if (mobileBrowserOpened) {
+			    // Handle Android-specific behavior
+			    if (isAndroidChrome) {
 			        if (speechEndTimer) {
 			            clearTimeout(speechEndTimer); // Reset the speech-end timer
 			        }
@@ -5104,8 +5084,8 @@
 			        // Set a timer to send the message after detecting speech has ended
 			        speechEndTimer = setTimeout(function () {
 			            if (final_transcript !== "" && !inputSent) {
-			                console.log("Speech ended on mobile. Sending final transcript...");
-			                $('.chatInputBox').html(prevStr); // Update input box with final text
+			                console.log("Speech ended on Android Chrome. Sending final transcript...");
+			                $('.chatInputBox').html(final_transcript); // Update input box with final text
 			                me.sendMessage($('.chatInputBox'));
 			
 			                // Reset variables to prevent duplicate input
@@ -5120,9 +5100,9 @@
 			    }
 			
 			    // Handle desktop browser behavior
-			    if (!mobileBrowserOpened && final_transcript !== "") {
-			        console.log("Final transcript detected on desktop. Sending now...");
-			        $('.chatInputBox').html(prevStr); // Update input box with final text
+			    if (!isAndroidChrome && final_transcript !== "") {
+			        console.log("Final transcript detected on non-Android. Sending now...");
+			        $('.chatInputBox').html(final_transcript); // Update input box with final text
 			        me.sendMessage($('.chatInputBox'));
 			
 			        // Reset variables to prevent duplicate input
