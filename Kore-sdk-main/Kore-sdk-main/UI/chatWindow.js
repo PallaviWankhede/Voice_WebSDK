@@ -5143,7 +5143,9 @@
                     $('.notRecordingMicrophone').css('display', 'block');
                 };
 
-                recognition.onresult = function (event) {
+
+	    //pallavi
+             recognition.onresult = function (event) {
 		    console.log("In recognition.onresult");
 		
 		    final_transcript = '';
@@ -5227,45 +5229,22 @@
 		        recognition.stop();
 		    }
 		};
-			//pallavi
-	// hoonartek Kore customization for mic on off - Navya
-   //                  if (recognizing && sessionStorage.getItem("mic")== 'true') {
-			// console.log("In recognizing && sessionStorage If condition");
-   //                      $('.chatInputBox').html(prevStr + "" + interim_transcript);
-   //                      $('.sendButton').removeClass('disabled');
-   //                      micEnable();
-   //                  }
-		   
-                // Hoonartek kore customization starts
-                    if (final_transcript !== "") {
-			console.log("In final_transcript If condition");
-                        var me = window.chatContainerConfig;
-                        me.sendMessage($('.chatInputBox'));
-                        final_transcript = "";  // hoonartek Kore customization for mic on off - Navya
-                        prevStr ="";
-                        // recognition.stop()  //for turn off mic after send 
+		
+		// Helper functions
+		function capitalize(s) {
+		    return s.replace(s.substr(0, 1), function (m) {
+		        return m.toUpperCase();
+		    });
+		}
+		
+		var two_line = /\n\n/g;
+		var one_line = /\n/g;
+		
+		function linebreak(s) {
+		    return s.replace(two_line, "<p></p>").replace(one_line, "<br>");
+		}
 
-                    }
-                // Hoonartek customization ends
-                    setTimeout(function () {
-			console.log("In setTimeout 5180");
-                        setCaretEnd(document.getElementsByClassName("chatInputBox"));
-                        document.getElementsByClassName('chatInputBox')[0].scrollTop = document.getElementsByClassName('chatInputBox')[0].scrollHeight;
-                    }, 350);
-                };
-            }
-
-            var two_line = /\n\n/g;
-            var one_line = /\n/g;
-            function linebreak(s) {
-		console.log("In function linebreak");
-                return s.replace(two_line, '<p></p>').replace(one_line, '<br>');
-            }
-
-            function capitalize(s) {
-		console.log("In function capitalize");
-                return s.replace(s.substr(0, 1), function (m) { return m.toUpperCase(); });
-            }
+	    //pallavi
             function startGoogleWebKitRecognization() {
 		console.log("In function startGoogleWebKitRecognization");
                 if (recognizing) {
