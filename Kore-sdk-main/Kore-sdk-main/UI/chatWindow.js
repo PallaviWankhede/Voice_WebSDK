@@ -5171,7 +5171,6 @@
 		    //pallavi
 		    recognition.onresult = function (event) {
 			    console.log("In recognition.onresult");
-			
 			    final_transcript = '';
 			    var interim_transcript = '';
 			
@@ -5253,7 +5252,7 @@
                         document.getElementsByClassName('chatInputBox')[0].scrollTop = document.getElementsByClassName('chatInputBox')[0].scrollHeight;
                     }, 350);
                 };
-            }
+            };
 
             var two_line = /\n\n/g;
             var one_line = /\n/g;
