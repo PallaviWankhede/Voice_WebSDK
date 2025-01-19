@@ -5244,28 +5244,52 @@
                     startGoogleWebKitRecognization();
                 }
             }
-            function micEnable() {
-		console.log("In function micEnable");
-                if (isRecordingStarted) {
-                    return;
-                }
-                if (!navigator.getUserMedia) {
-                    navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
-                }
-                if (navigator.getUserMedia) {
-                    isRecordingStarted = true;
-                    navigator.getUserMedia({
-                        audio: true
-                    }, success, function (e) {
-                        isRecordingStarted = false;
-                        alert('Please enable the microphone permission for this page');
-                        return;
-                    });
-                } else {
-                    isRecordingStarted = false;
-                    alert('getUserMedia is not supported in this browser.');
-                }
-            }
+  //           function micEnable() {
+		// console.log("In function micEnable");
+  //               if (isRecordingStarted) {
+  //                   return;
+  //               }
+  //               if (!navigator.getUserMedia) {
+  //                   navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
+  //               }
+  //               if (navigator.getUserMedia) {
+  //                   isRecordingStarted = true;
+  //                   navigator.getUserMedia({
+  //                       audio: true
+  //                   }, success, function (e) {
+  //                       isRecordingStarted = false;
+  //                       alert('Please enable the microphone permission for this page');
+  //                       return;
+  //                   });
+  //               } else {
+  //                   isRecordingStarted = false;
+  //                   alert('getUserMedia is not supported in this browser.');
+  //               }
+  //           }
+
+		function micEnable() {
+		    console.log("In function micEnable");
+		    if (isRecordingStarted) {
+		        return;
+		    }
+		
+		    const mediaDevices = navigator.mediaDevices;
+		    if (!mediaDevices || !mediaDevices.getUserMedia) {
+		        alert('Your browser does not support microphone access.');
+		        return;
+		    }
+		
+		    mediaDevices.getUserMedia({ audio: true })
+		        .then(() => {
+		            isRecordingStarted = true;
+		        })
+		        .catch(err => {
+		            console.error("Microphone access denied:", err);
+		            isRecordingStarted = false;
+		            alert('Please enable the microphone permission for this page.');
+		        });
+		}
+
 
             function afterMicEnable() {
 		console.log("In function afterMicEnable");
