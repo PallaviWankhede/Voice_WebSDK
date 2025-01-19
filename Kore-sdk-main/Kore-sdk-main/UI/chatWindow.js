@@ -5161,7 +5161,13 @@
                     //console.log('final: ',final_transcript);
 			
 		    //pallavi
-			var mobileBrowserOpened = me.isMobile();			
+		    var me = window.chatContainerConfig || {};  // Default to an empty object if not available
+		    var mobileBrowserOpened = false;
+		
+		    // Ensure 'me' is valid and call isMobile() from the chatWindow prototype
+		    if (me.isMobile && typeof me.isMobile === "function") {
+		        mobileBrowserOpened = me.isMobile();
+		    }	
 			    if (recognizing && sessionStorage.getItem("mic") == 'true') {
 			        console.log("In recognizing && sessionStorage If condition");
 			
@@ -5202,6 +5208,7 @@
 			        // Stop recognition after sending
 			        recognition.stop();  
 			    }
+			//pallavi
 	// hoonartek Kore customization for mic on off - Navya
    //                  if (recognizing && sessionStorage.getItem("mic")== 'true') {
 			// console.log("In recognizing && sessionStorage If condition");
@@ -5210,7 +5217,6 @@
    //                      micEnable();
    //                  }
 		   
-		//pallavi
                 // Hoonartek kore customization starts
                     if (final_transcript !== "") {
 			console.log("In final_transcript If condition");
