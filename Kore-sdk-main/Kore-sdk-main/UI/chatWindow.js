@@ -5040,12 +5040,13 @@
                 // Hoonartek customization ends
 
 		    recognition.onresult = function (event) {
-			console.log("In recognition onresult");
+			    console.log("In recognition onresult");
 			    final_transcript = '';
 			    var interim_transcript = '';
 			    var speechEndTimer = null; // Timer to handle speech-end delay
 			    var SPEECH_END_DELAY = 1500; // 1.5-second delay for detecting speech end
 			    var inputSent = false; // Flag to track if the input is already sent
+			
 			    for (var i = event.resultIndex; i < event.results.length; ++i) {
 			        if (event.results[i].isFinal) {
 			            final_transcript += event.results[i][0].transcript;
@@ -5053,12 +5054,15 @@
 			            interim_transcript += event.results[i][0].transcript;
 			        }
 			    }
+			
 			    final_transcript = capitalize(final_transcript);
 			    final_transcript = linebreak(final_transcript);
 			    interim_transcript = linebreak(interim_transcript);
+			
 			    if (final_transcript !== "") {
 			        prevStr += final_transcript;
 			    }
+			
 			    console.log('Interim: ', interim_transcript);
 			    console.log('Final: ', final_transcript);
 			
@@ -5069,28 +5073,46 @@
 			        console.log("Detecting mobile browser...");
 			        mobileBrowserOpened = me.isMobile();
 			    }
-			    // Update input box with interim results (common for mobile and desktop)
+			
+			    // Update input box with interim results (customized for mobile and desktop)
 			    if (recognizing && sessionStorage.getItem("mic") == 'true') {
-			        console.log("Updating input box with interim results...");
-			        $('.chatInputBox').html(prevStr + interim_transcript);
+			        if (mobileBrowserOpened) {
+			            // Handle interim results specifically for mobile
+			            console.log("Updating input box with interim results on mobile...");
+			            // Update only if interim results exist and speechEndTimer hasn't finalized the result
+			            if (interim_transcript) {
+			                $('.chatInputBox').html(prevStr + interim_transcript);
+			            }
+			        } else {
+			            // Handle interim results specifically for desktop
+			            console.log("Updating input box with interim results on desktop...");
+			            // Desktop can show interim results immediately
+			            $('.chatInputBox').html(prevStr + interim_transcript);
+			        }
+			
+			        // Enable send button and mic indicator for both cases
 			        $('.sendButton').removeClass('disabled');
 			        micEnable();
 			    }
+			
 			    // Handle mobile browser behavior
 			    if (mobileBrowserOpened) {
 			        if (speechEndTimer) {
 			            clearTimeout(speechEndTimer); // Reset the speech-end timer
 			        }
+			
 			        // Set a timer to send the message after detecting speech has ended
 			        speechEndTimer = setTimeout(function () {
 			            if (final_transcript !== "" && !inputSent) {
 			                console.log("Speech ended on mobile. Sending final transcript...");
 			                $('.chatInputBox').html(prevStr); // Update input box with final text
 			                me.sendMessage($('.chatInputBox'));
+			
 			                // Reset variables to prevent duplicate input
 			                final_transcript = "";
 			                prevStr = "";
 			                inputSent = true;
+			
 			                // Stop recognition
 			                recognition.stop();
 			            }
@@ -5102,18 +5124,21 @@
 			        console.log("Final transcript detected on desktop. Sending now...");
 			        $('.chatInputBox').html(prevStr); // Update input box with final text
 			        me.sendMessage($('.chatInputBox'));
+			
 			        // Reset variables to prevent duplicate input
 			        final_transcript = "";
 			        prevStr = "";
+			
 			        // Stop recognition
 			        recognition.stop();
 			    }
 			};
-		    
-                    setTimeout(function () {
-                        setCaretEnd(document.getElementsByClassName("chatInputBox"));
-                        document.getElementsByClassName('chatInputBox')[0].scrollTop = document.getElementsByClassName('chatInputBox')[0].scrollHeight;
-                    }, 350);
+			
+			// Ensure caret is set correctly in the input box after updates
+			setTimeout(function () {
+			    setCaretEnd(document.getElementsByClassName("chatInputBox"));
+			    document.getElementsByClassName('chatInputBox')[0].scrollTop = document.getElementsByClassName('chatInputBox')[0].scrollHeight;
+			}, 350);
                 };
 
             var two_line = /\n\n/g;
